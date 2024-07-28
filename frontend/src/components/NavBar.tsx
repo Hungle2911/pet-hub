@@ -1,7 +1,16 @@
-import React from "react";
+import Logo from "./Logo";
 
 const NavBar = () => {
-  return <nav>NavBar</nav>;
+  return (
+    <nav>
+      <div className=" mx-20 flex items-center justify-around">
+        <div>
+          <Logo />
+        </div>
+        <div>Nav right</div>
+      </div>
+    </nav>
+  );
 };
 
 export default NavBar;

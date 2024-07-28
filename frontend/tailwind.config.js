@@ -20,8 +20,7 @@ module.exports = {
       'white': '#ffffff',
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      playwrite: ['"Playwrite BE VLG"', 'sans-serif'],
     },
     extend: {
       spacing: {
