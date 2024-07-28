@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 const Homepage = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -11,20 +8,7 @@ const Homepage = () => {
               Welcome to Feline Good
             </h1>
             <p className="mt-4 text-gray-600">Where Every Meow Matters</p>
-            <div className="mt-8">
-              <Link
-                to="/login"
-                className="bg-blue-500 text-white py-2 px-4 rounded mr-4"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="bg-green-500 text-white py-2 px-4 rounded"
-              >
-                Sign Up
-              </Link>
-            </div>
+            <div className="mt-8"></div>
           </div>
         </section>
         <section className="container mx-auto px-6 py-20">

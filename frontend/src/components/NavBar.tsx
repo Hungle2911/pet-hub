@@ -1,3 +1,5 @@
+import LoginButton from "./Auth/LoginButton";
+import SignUpButton from "./Auth/SignUpButton";
 import Logo from "./Logo";
 
 const NavBar = () => {
@@ -7,7 +9,10 @@ const NavBar = () => {
         <div>
           <Logo />
         </div>
-        <div>Nav right</div>
+        <div>
+          <SignUpButton />
+          <LoginButton />
+        </div>
       </div>
     </nav>
   );
