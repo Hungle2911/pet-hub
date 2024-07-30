@@ -1,4 +1,4 @@
-import logo from "../assets/Feline_good_logo.png";
+import logo from "../assets/Prance.jpg";
 
 const Logo = () => {
   return (
