@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors')
 const PORT = process.env.PORT || 8070;
 const app = express();
-
+import index from './router/index'
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true })); //Parsing incoming request bodies URL-encoded form data
@@ -21,15 +21,12 @@ app.use(cors()) // Enable cross-platform data exchange
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 
-// app.use('/v1/api', index);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
+app.use('/v1/api', index);
 
 
 app.listen(PORT, () => {
   console.log(`Hi, I am listening on port ${PORT}`);
-  console.log(process.env.AUTH0_DOMAIN);
 });
