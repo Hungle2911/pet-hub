@@ -6,8 +6,8 @@ import Navbar from "./components/NavBar";
 // import SitterPage from "./components/Dashboard/SitterPage";
 // import OwnerProfile from "./components/Profiles/OwnerProfile";
 // import SitterProfile from "./components/Profiles/SitterProfile";
-import UserInfoForm from './components/Profiles/UserInfoForm';
-import CatInfoForm from "./components/Profiles/CatInfoForm";
+// import UserInfoForm from './components/Profiles/UserInfoForm';
+// import CatInfoForm from "./components/Profiles/CatInfoForm";
 import "./App.css";
 import Homepage from "./routes/HomePage";
 
@@ -18,15 +18,15 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/Profiles" element={<UserInfoForm />} />
-          <Route path="/Profiles" element={<CatInfoForm />} />
           {/* <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/owner-page" element={<OwnerPage />} />
           <Route path="/sitter-page" element={<SitterPage />} />
           <Route path="/owner-profile" element={<UserInfoForm />} />
           <Route path="/owner-profile" element={<OwnerProfile />} />
-          <Route path="/sitter-profile" element={<SitterProfile />} /> */}
+          <Route path="/sitter-profile" element={<SitterProfile />} /> 
+          <Route path="/Profiles" element={<UserInfoForm />} />
+          <Route path="/Profiles" element={<CatInfoForm />} />*/}
         </Routes>
       </main>
     </div>
