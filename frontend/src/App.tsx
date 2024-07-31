@@ -9,6 +9,7 @@ import Navbar from "./components/NavBar";
 import "./App.css";
 import Homepage from "./routes/HomePage";
 import SignUpForm from "./components/Auth/SignUpForm";
+import SearchSitterPage from "./routes/SearchSitterPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/search" element={<SearchSitterPage />} />
           {/* <Route path="/login" element={<Login />} />
           <Route path="/owner-page" element={<OwnerPage />} />
           <Route path="/sitter-page" element={<SitterPage />} />
