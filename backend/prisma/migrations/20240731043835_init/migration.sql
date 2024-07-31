@@ -9,7 +9,6 @@ CREATE TABLE "User" (
     "email" VARCHAR(50),
     "password" VARCHAR(255),
     "role" "Role" NOT NULL DEFAULT 'OWNER',
-    "refresh_token" VARCHAR(255),
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

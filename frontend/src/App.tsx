@@ -8,6 +8,7 @@ import Navbar from "./components/NavBar";
 // import SitterProfile from "./components/Profiles/SitterProfile";
 import "./App.css";
 import Homepage from "./routes/HomePage";
+import SignUpForm from "./components/Auth/SignUpForm";
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
           {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/owner-page" element={<OwnerPage />} />
           <Route path="/sitter-page" element={<SitterPage />} />
           <Route path="/owner-profile" element={<OwnerProfile />} />

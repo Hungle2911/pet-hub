@@ -14,15 +14,14 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  user_name     String?  @unique @db.VarChar(50)
-  full_name     String?  @db.VarChar(60)
-  email         String?  @unique @db.VarChar(50)
-  password      String?  @db.VarChar(255)
-  role          Role     @default(OWNER)
-  refresh_token String?  @db.VarChar(255)
-  created_at    DateTime @default(now()) @db.Timestamp
-  updated_at    DateTime @default(now()) @db.Timestamp
+  id         Int      @id @default(autoincrement())
+  user_name  String?  @unique @db.VarChar(50)
+  full_name  String?  @db.VarChar(60)
+  email      String?  @unique @db.VarChar(50)
+  password   String?  @db.VarChar(255)
+  role       Role     @default(OWNER)
+  created_at DateTime @default(now()) @db.Timestamp
+  updated_at DateTime @default(now()) @db.Timestamp
 }
 
 enum Role {
