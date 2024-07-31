@@ -14,6 +14,7 @@ const createToken = (user: User) => {
   return token;
 };
 
+// This is a utility function that generates a new refresh token given a user object. 
 const refreshToken = (user: User, token: string) => {
   const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || '';
   const payload = { id: user.id, user_name: user.user_name, email: user.email };
