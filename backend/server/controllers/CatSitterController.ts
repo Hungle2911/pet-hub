@@ -3,9 +3,9 @@ import { geocodeAddress } from "../utilities/geocoder";
 import { calculateDistance } from "../utilities/geoDistance";
 import prisma from "../configs";
 class CatSitterController {
- async search(req: Request, res: Response) {
-  try {
+  async search(req: Request, res: Response) {
     const { address, startDate, endDate, maxRate, maxDistance = 10 } = req.query;
+  try {
     const coordinates = await geocodeAddress(address as string);
     if (!coordinates) {
       return res.status(400).json({ error: 'Invalid address' });}
@@ -40,7 +40,8 @@ class CatSitterController {
 
     res.json(nearbyCatSitters);
   } catch (error) {
-    console.error(error)
+    console.error('Error searching cat sitters:', error);
+    res.status(500).json({ error: 'Error searching cat sitters' });
   }
  }
 }

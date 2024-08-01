@@ -6,6 +6,6 @@ import catSitterRouter from './cat_sitter'
 const router = Router();
 router.use('/user', userRouter)
 router.use('/auth', authRouter)
-router.use('/cat-sitter', catSitterRouter)
+router.use('/cat-sitters', catSitterRouter)
 
 export default router

@@ -3,95 +3,65 @@ import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
-const NUM_USERS = 50;
-const NUM_CAT_OWNERS = 30;
-const NUM_CAT_SITTERS = 20;
-const NUM_CATS = 60;
-const NUM_AVAILABILITIES = 100;
-const NUM_BOOKINGS = 40;
+const NUM_CAT_SITTERS = 50;
+const NUM_AVAILABILITIES = 200;
+
+// Toronto area boundaries (approximate)
+const TORONTO_LAT_MIN = 43.58;
+const TORONTO_LAT_MAX = 43.85;
+const TORONTO_LON_MIN = -79.64;
+const TORONTO_LON_MAX = -79.12;
+
+// List of Toronto area cities/neighborhoods
+const TORONTO_AREAS = [
+  'Toronto', 'Scarborough', 'North York', 'Etobicoke', 'York', 'East York',
+  'Mississauga', 'Brampton', 'Markham', 'Vaughan', 'Richmond Hill', 'Oakville',
+  'Burlington', 'Pickering', 'Ajax', 'Whitby', 'Oshawa'
+];
+
+function generateTorontoAddress() {
+  return {
+    latitude: faker.number.float({ min: TORONTO_LAT_MIN, max: TORONTO_LAT_MAX, precision: 0.000001 }),
+    longitude: faker.number.float({ min: TORONTO_LON_MIN, max: TORONTO_LON_MAX, precision: 0.000001 }),
+    location: faker.helpers.arrayElement(TORONTO_AREAS)
+  };
+}
 
 async function main() {
-  // Create Users
-  const users = [];
-  for (let i = 0; i < NUM_USERS; i++) {
+  // Create Cat Sitters in Toronto area
+  const catSitters = [];
+  for (let i = 0; i < NUM_CAT_SITTERS; i++) {
+    const { latitude, longitude, location } = generateTorontoAddress();
     const user = await prisma.user.create({
       data: {
         user_name: faker.internet.userName(),
         full_name: faker.person.fullName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
-        role: faker.helpers.arrayElement([Role.OWNER, Role.PET_SITTER]),
-        latitude: faker.location.latitude(),
-        longitude: faker.location.longitude(),
-        location: faker.location.city(),
+        role: Role.PET_SITTER,
+        latitude,
+        longitude,
+        location,
         description: faker.lorem.paragraph(),
       },
     });
-    users.push(user);
-  }
 
-  // Create Cat Owners
-  const catOwners = [];
-  for (let i = 0; i < NUM_CAT_OWNERS; i++) {
-    const owner = await prisma.catOwner.create({
-      data: {
-        userId: users[i].id,
-      },
-    });
-    catOwners.push(owner);
-  }
-
-  // Create Cat Sitters
-  const catSitters = [];
-  for (let i = NUM_CAT_OWNERS; i < NUM_USERS; i++) {
     const sitter = await prisma.catSitter.create({
       data: {
-        userId: users[i].id,
+        userId: user.id,
         experience: faker.lorem.paragraph(),
-        rate: parseFloat(faker.finance.amount(10, 50, 2)),
+        rate: 20, // Toronto rates might be higher
       },
     });
     catSitters.push(sitter);
   }
 
-  // Create Cats
-  for (let i = 0; i < NUM_CATS; i++) {
-    await prisma.cat.create({
-      data: {
-        name: faker.animal.cat(),
-        age: faker.number.int({ min: 1, max: 20 }),
-        breed: faker.animal.cat(),
-        photo: faker.image.url(),
-        medicalHistory: faker.lorem.sentence(),
-        behavior: faker.lorem.sentence(),
-        ownerId: catOwners[faker.number.int({ min: 0, max: catOwners.length - 1 })].id,
-      },
-    });
-  }
-
-  // Create Availabilities
+  // Create Availabilities for Cat Sitters
   for (let i = 0; i < NUM_AVAILABILITIES; i++) {
     await prisma.availability.create({
       data: {
         date: faker.date.future(),
         isAvailable: faker.datatype.boolean(),
-        catSitterId: catSitters[faker.number.int({ min: 0, max: catSitters.length - 1 })].id,
-      },
-    });
-  }
-
-  // Create Bookings
-  for (let i = 0; i < NUM_BOOKINGS; i++) {
-    const startDate = faker.date.future();
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + faker.number.int({ min: 1, max: 7 }));
-
-    await prisma.booking.create({
-      data: {
-        startDate,
-        endDate,
-        status: faker.helpers.arrayElement(Object.values(BookingStatus)),
-        catOwnerId: catOwners[faker.number.int({ min: 0, max: catOwners.length - 1 })].id,
         catSitterId: catSitters[faker.number.int({ min: 0, max: catSitters.length - 1 })].id,
       },
     });

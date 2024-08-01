@@ -1,17 +1,19 @@
-import NodeGeocoder from 'node-geocoder';
-
-const options: NodeGeocoder.Options = {
-  provider: 'openstreetmap',
-};
-
-const geocoder = NodeGeocoder(options);
+import { Client } from '@googlemaps/google-maps-services-js';
+const client = new Client({});
 
 export async function geocodeAddress(address: string): Promise<{ lat: number; lon: number } | null> {
   try {
-    const res: NodeGeocoder.Entry[] = await geocoder.geocode(address);
+    const response = await client.geocode({
+      params: {
+        address: address,
+        key: process.env.GOOGLE_MAPS_API_KEY ?? 'error',
+      },
+      timeout: 1000, // milliseconds
+    });
 
-    if (res.length > 0 && res[0].latitude !== undefined && res[0].longitude !== undefined) {
-      return { lat: res[0].latitude, lon: res[0].longitude };
+    if (response.data.results.length > 0) {
+      const location = response.data.results[0].geometry.location;
+      return { lat: location.lat, lon: location.lng };
     }
 
     return null;
@@ -20,3 +22,21 @@ export async function geocodeAddress(address: string): Promise<{ lat: number; lo
     return null;
   }
 }
+
+
+// // Test addresses
+// const addresses = [
+//   '1600 Amphitheatre Parkway, Mountain View, CA'
+// ];
+
+// // Test the geocodeAddress function
+// async function testGeocoder() {
+//   for (const address of addresses) {
+//     console.log(`Testing address: ${address}`);
+//     const result = await geocodeAddress(address);
+//     console.log('Result:', result);
+//     console.log('---');
+//   }
+// }
+
+// testGeocoder();

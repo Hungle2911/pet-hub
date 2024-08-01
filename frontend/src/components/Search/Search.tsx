@@ -46,7 +46,7 @@ const Search: React.FC = () => {
           },
         }
       );
-
+      console.log(response.data);
       setSearchResults(response.data);
 
       if (response.data.length > 0) {
