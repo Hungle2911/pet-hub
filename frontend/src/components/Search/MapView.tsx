@@ -1,6 +1,10 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
-import "leaflet/dist/leaflet.css";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+import { useState } from "react";
 
 interface CatSitter {
   id: number;
@@ -14,36 +18,50 @@ interface CatSitter {
 
 interface MapViewProps {
   catSitters: CatSitter[];
-  center: LatLngExpression;
+  center: { lat: number; lng: number };
 }
 
 const MapView = ({ catSitters, center }: MapViewProps) => {
+  const [selectedSitter, setSelectedSitter] = useState<CatSitter | null>(null);
+  const mapContainerStyle = {
+    width: "100%",
+    height: "400px",
+  };
+  const onSelect = (sitter: CatSitter) => {
+    setSelectedSitter(sitter);
+  };
+  const googleMapAPI = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
   return (
-    <MapContainer
-      center={center}
-      zoom={13}
-      style={{ height: "400px", width: "100%" }}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {catSitters.map((sitter) => (
-        <Marker
-          key={sitter.id}
-          position={
-            [sitter.user.latitude, sitter.user.longitude] as LatLngExpression
-          }
-        >
-          <Popup>
+    <LoadScript googleMapsApiKey={googleMapAPI}>
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={13}
+        center={center}
+      >
+        {catSitters.map((sitter) => (
+          <Marker
+            key={sitter.id}
+            position={{ lat: sitter.user.latitude, lng: sitter.user.longitude }}
+            onClick={() => onSelect(sitter)}
+          />
+        ))}
+        {selectedSitter && (
+          <InfoWindow
+            position={{
+              lat: selectedSitter.user.latitude,
+              lng: selectedSitter.user.longitude,
+            }}
+            onCloseClick={() => setSelectedSitter(null)}
+          >
             <div>
-              <h3>{sitter.user.name}</h3>
-              <p>Rate: ${sitter.rate}/hour</p>
+              <h3>{selectedSitter.user.name}</h3>
+              <p>Rate: ${selectedSitter.rate}/hour</p>
             </div>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    </LoadScript>
   );
 };
 

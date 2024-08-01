@@ -23,12 +23,18 @@ interface CatSitter {
   rate: number;
   averageRating: number | null;
 }
-
+interface Coordinate {
+  lat: number;
+  lng: number;
+}
 const Search: React.FC = () => {
   const { register, handleSubmit, control, watch } =
     useForm<SearchFormInputs>();
   const [searchResults, setSearchResults] = useState<CatSitter[]>([]);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([0, 0]);
+  const [mapCenter, setMapCenter] = useState<Coordinate>({
+    lat: 43.6426,
+    lng: -79.387054,
+  });
 
   const startDate = watch("startDate");
 
@@ -50,10 +56,10 @@ const Search: React.FC = () => {
       setSearchResults(response.data);
 
       if (response.data.length > 0) {
-        setMapCenter([
-          response.data[0].user.latitude,
-          response.data[0].user.longitude,
-        ]);
+        setMapCenter({
+          lat: response.data[0].user.latitude,
+          lng: response.data[0].user.longitude,
+        });
       }
     } catch (error) {
       console.error("Error searching for sitters:", error);
@@ -160,11 +166,9 @@ const Search: React.FC = () => {
         </div>
       </form>
 
-      {searchResults.length > 0 && (
-        <div className="mt-8">
-          <MapView catSitters={searchResults} center={mapCenter} />
-        </div>
-      )}
+      <div className="mt-8">
+        <MapView catSitters={searchResults} center={mapCenter} />
+      </div>
     </div>
   );
 };
