@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@prisma/client": "^5.17.0",
     "@types/express-jwt": "^7.4.2",
     "bcryptjs": "^2.4.3",
@@ -27,9 +28,12 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
-  "scripts": {
+ "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon ./server/index.ts"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
