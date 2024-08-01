@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import "./UserInfoForm.css";
+import axios from "axios";
 
 const UserInfoForm = () => {
   const {
@@ -9,10 +9,17 @@ const UserInfoForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Data... to be submitted
-  };
+ async function onSubmit(data) {
+    try {
+      const response = await axios.post(
+        "http://localhost:8070/api/userinfo",
+        data
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  }
 
   return (
     <form
@@ -113,6 +120,7 @@ const UserInfoForm = () => {
         >
           <option value="">Select your favorite breed</option>
           <option value="sphynx">Sphynx</option>
+          <option value="boring cat">Boring Cat</option>
         </select>
         {errors.breed && (
           <p className="text-red-500 text-sm mt-1">
@@ -123,7 +131,7 @@ const UserInfoForm = () => {
 
       <div className="mb-4">
         <label htmlFor="bio" className="block text-gray-700 font-bold mb-2">
-          Bio 
+          Bio
         </label>
         <textarea
           id="bio"

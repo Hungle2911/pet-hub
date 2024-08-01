@@ -2,9 +2,11 @@
 require('dotenv').config();
 
 // Web server config
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors')
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+import userRoutes from "/routes/UserRoutes";
+const checkJwt = require("auths");
 const PORT = process.env.PORT || 8070;
 const app = express();
 
@@ -28,8 +30,11 @@ app.use(cors()) // Enable cross-platform data exchange
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+// Use user routes
+app.use('/api', userRoutes); 
 
 app.listen(PORT, () => {
   console.log(`Hi, I am listening on port ${PORT}`);
   console.log(process.env.AUTH0_DOMAIN);
+  
 });
