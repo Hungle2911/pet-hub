@@ -6,12 +6,14 @@ const options: NodeGeocoder.Options = {
 
 const geocoder = NodeGeocoder(options);
 
-export async function geocodeAddress(address: string): Promise<{lat: number | undefined, lon: number | undefined} | null> {
+export async function geocodeAddress(address: string): Promise<{ lat: number; lon: number } | null> {
   try {
-    const res = await geocoder.geocode(address);
-    if (res.length > 0) {
+    const res: NodeGeocoder.Entry[] = await geocoder.geocode(address);
+
+    if (res.length > 0 && res[0].latitude !== undefined && res[0].longitude !== undefined) {
       return { lat: res[0].latitude, lon: res[0].longitude };
     }
+
     return null;
   } catch (error) {
     console.error('Geocoding error:', error);
