@@ -2,11 +2,15 @@
 require('dotenv').config();
 
 // Web server config
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
-import userRoutes from "/routes/UserRoutes";
-const checkJwt = require("auths");
+import "dotenv/config";
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import userRoutes from "../routes/userRoutes";
+import loginRoutes from "../routes/login";
+import checkJwt from "./middleware/auths"; 
+
 const PORT = process.env.PORT || 8070;
 const app = express();
 
@@ -15,6 +19,8 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true })); //Parsing incoming request bodies URL-encoded form data
 app.use(express.json()) // Parsing req body
 app.use(cors()) // Enable cross-platform data exchange
+app.use(cookieParser());
+
 
 // Separated Routes for each Resource
 // console.log(object);
@@ -30,8 +36,8 @@ app.use(cors()) // Enable cross-platform data exchange
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-// Use user routes
 app.use('/api', userRoutes); 
+app.use('/login', loginRoutes);
 
 app.listen(PORT, () => {
   console.log(`Hi, I am listening on port ${PORT}`);

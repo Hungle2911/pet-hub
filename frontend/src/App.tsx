@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
-// import Login from "./components/Auth/Login";
+import Login from "./components/Auth/Login";
 // import Register from "./components/Auth/Register";
 // import OwnerPage from "./components/Dashboard/OwnerPage";
 // import SitterPage from "./components/Dashboard/SitterPage";
@@ -19,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/userinfo" element={<UserInfoForm />} />
+          <Route path="/login" element={<Login />} />
           {/* <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/owner-page" element={<OwnerPage />} />

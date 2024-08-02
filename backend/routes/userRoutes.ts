@@ -1,9 +1,9 @@
-import express from "express";
-import prisma from "../configs/index";
+import express, { Request, Response } from "express";
+import prisma from "../server/configs/index";
 
 const router = express.Router();
 
-router.post("/userinfo", async (req, res) => {
+router.post("/userinfo", async (req: Request, res: Response) => {
   const { name, email, age, username, role, breed, bio } = req.body;
 
   try {
