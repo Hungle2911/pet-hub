@@ -50,7 +50,7 @@ async function main() {
       data: {
         userId: user.id,
         experience: faker.lorem.paragraph(),
-        rate: 20, // Toronto rates might be higher
+        rate: parseFloat(faker.finance.amount(15, 50, 2)), // Toronto rates might be higher
       },
     });
     catSitters.push(sitter);

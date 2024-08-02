@@ -1,74 +1,19 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
-import MapView from "./MapView";
+import { SearchFormInputs } from "../../types/types";
 
-interface SearchFormInputs {
-  address: string;
-  startDate: Date;
-  endDate: Date;
-  maxRate: number;
-  maxDistance: number;
+interface SearchProps {
+  onSubmit: SubmitHandler<SearchFormInputs>;
 }
-
-interface CatSitter {
-  id: number;
-  user: {
-    name: string;
-    latitude: number;
-    longitude: number;
-  };
-  rate: number;
-  averageRating: number | null;
-}
-interface Coordinate {
-  lat: number;
-  lng: number;
-}
-const Search: React.FC = () => {
+const Search = ({ onSubmit }: SearchProps) => {
   const { register, handleSubmit, control, watch } =
     useForm<SearchFormInputs>();
-  const [searchResults, setSearchResults] = useState<CatSitter[]>([]);
-  const [mapCenter, setMapCenter] = useState<Coordinate>({
-    lat: 43.6426,
-    lng: -79.387054,
-  });
 
   const startDate = watch("startDate");
 
-  const onSubmit = async (data: SearchFormInputs) => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8070/v1/api/cat-sitters/search",
-        {
-          params: {
-            address: data.address,
-            startDate: data.startDate.toISOString(),
-            endDate: data.endDate.toISOString(),
-            maxRate: data.maxRate,
-            maxDistance: data.maxDistance,
-          },
-        }
-      );
-      console.log(response.data);
-      setSearchResults(response.data);
-
-      if (response.data.length > 0) {
-        setMapCenter({
-          lat: response.data[0].user.latitude,
-          lng: response.data[0].user.longitude,
-        });
-      }
-    } catch (error) {
-      console.error("Error searching for sitters:", error);
-    }
-  };
-
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-2xl mb-6 text-center">Search for Sitters</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label
@@ -165,10 +110,6 @@ const Search: React.FC = () => {
           </button>
         </div>
       </form>
-
-      <div className="mt-8">
-        <MapView catSitters={searchResults} center={mapCenter} />
-      </div>
     </div>
   );
 };

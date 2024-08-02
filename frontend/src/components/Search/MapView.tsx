@@ -25,7 +25,7 @@ const MapView = ({ catSitters, center }: MapViewProps) => {
   const [selectedSitter, setSelectedSitter] = useState<CatSitter | null>(null);
   const mapContainerStyle = {
     width: "100%",
-    height: "400px",
+    height: "600px",
   };
   const onSelect = (sitter: CatSitter) => {
     setSelectedSitter(sitter);
