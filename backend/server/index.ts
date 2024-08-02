@@ -9,7 +9,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "../routes/userRoutes";
 import loginRoutes from "../routes/login";
-import checkJwt from "./middleware/auths"; 
+import checkJwt from "./middlewares/auth"; 
 
 const PORT = process.env.PORT || 8070;
 const app = express();
