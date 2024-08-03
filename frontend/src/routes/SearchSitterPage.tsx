@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchForm from "../components/Search/SearchForm";
 import axios from "axios";
 import CatSitterList from "../components/Search/CatSitterList";
@@ -26,6 +26,38 @@ const SearchSitterPage = () => {
     lng: -79.387054,
   });
   const [radius, setRadius] = useState<number>(5000);
+  useEffect(() => {
+    // Get user's location or use a default location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setMapCenter({ lat: latitude, lng: longitude });
+        fetchNearbySitters({ lat: latitude, lng: longitude });
+      },
+      () => {
+        fetchNearbySitters(mapCenter);
+      }
+    );
+  }, []);
+
+  const fetchNearbySitters = async (center: { lat: number; lng: number }) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8070/v1/api/cat-sitters/search",
+        {
+          params: {
+            latitude: center.lat,
+            longitude: center.lng,
+            maxDistance: 5,
+            maxRate: 1000,
+          },
+        }
+      );
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Error fetching nearby sitters:", error);
+    }
+  };
   const onSubmit = async (data: SearchFormInputs) => {
     try {
       const response = await axios.get(
@@ -42,7 +74,7 @@ const SearchSitterPage = () => {
       );
       console.log(response.data);
       setSearchResults(response.data);
-
+      setRadius(data.maxDistance * 1000);
       if (response.data.length > 0) {
         setMapCenter({
           lat: response.data[0].user.latitude,
