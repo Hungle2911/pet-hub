@@ -1,15 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
+import Homepage from "./routes/Homepage";
 import Login from "./components/Auth/Login";
-// import Register from "./components/Auth/Register";
-// import OwnerPage from "./components/Dashboard/OwnerPage";
-// import SitterPage from "./components/Dashboard/SitterPage";
-// import OwnerProfile from "./components/Profiles/OwnerProfile";
-// import SitterProfile from "./components/Profiles/SitterProfile";
-import UserInfoForm from "./components/Profiles/UserInfoForm";
-// import CatInfoForm from "./components/Profiles/PetInfoForm";
+import Register from "./components/Auth/Register";
+import Logout from "./components/Auth/Logout";
 import "./App.css";
-import Homepage from "./routes/HomePage";
 
 function App() {
   return (
@@ -18,16 +13,9 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/userinfo" element={<UserInfoForm />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/owner-page" element={<OwnerPage />} />
-          <Route path="/sitter-page" element={<SitterPage />} />
-          <Route path="/owner-profile" element={<UserInfoForm />} />
-          <Route path="/owner-profile" element={<OwnerProfile />} />
-          <Route path="/sitter-profile" element={<SitterProfile />} /> 
-          <Route path="/petinfo" element={<petInfoForm />} />*/}
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </main>
     </div>

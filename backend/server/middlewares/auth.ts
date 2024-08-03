@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from "express";
 import jwt from "express-jwt";
 import jwks from "jwks-rsa";
 

@@ -1,128 +1,486 @@
-// import React, { useState } from "react";
-// import { useAuth } from "../../context/AuthContext";
+// SIDE BY SIDE
+// import React, { useEffect } from "react";
+// import { useForm } from "react-hook-form";
+// import axios from "axios";
 
 // const Register = () => {
-//   const { register } = useAuth();
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [userType, setUserType] = useState("owner");
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm();
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     register(email, password, userType);
+//   useEffect(() => {
+//     console.log("Register component mounted");
+//   }, []);
+
+//   const onSubmit = async (data) => {
+//     try {
+//       const response = await axios.post(
+//         "http://localhost:8070/api/register",
+//         data
+//       );
+//       console.log("Response:", response.data);
+//     } catch (error) {
+//       console.error("Error submitting form:", error);
+//     }
 //   };
 
 //   return (
-//     <form onSubmit={handleSubmit}>
-//       <input
-//         type="email"
-//         placeholder="Email"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//       />
-//       <input
-//         type="password"
-//         placeholder="Password"
-//         value={password}
-//         onChange={(e) => setPassword(e.target.value)}
-//       />
-//       <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-//         <option value="owner">Cat Owner</option>
-//         <option value="sitter">Cat Sitter</option>
-//       </select>
-//       <button type="submit">Register</button>
+//     <form
+//       onSubmit={handleSubmit(onSubmit)}
+//       className="max-w-3xl mx-auto p-6 bg-beige/70 rounded-lg shadow-lg mt-16"
+//       style={{ paddingTop: "3rem" }}
+//     >
+//       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//         <div className="bg-white p-4 rounded-lg shadow-md">
+//           <h2 className="text-xl font-bold mb-4 text-center">Owner Details</h2>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="username"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Username
+//             </label>
+//             <input
+//               id="username"
+//               {...register("username", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//             {errors.username && (
+//               <p className="text-red-500 text-sm mt-1">Username is required</p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="email"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Email
+//             </label>
+//             <input
+//               id="email"
+//               {...register("email", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//             {errors.email && (
+//               <p className="text-red-500 text-sm mt-1">
+//                 Valid email is required
+//               </p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="password"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Password
+//             </label>
+//             <input
+//               id="password"
+//               type="password"
+//               {...register("password", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//             {errors.password && (
+//               <p className="text-red-500 text-sm mt-1">Password is required</p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="favoriteBreed"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Favorite Cat Breed
+//             </label>
+//             <select
+//               id="favoriteBreed"
+//               {...register("favoriteBreed", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             >
+//               <option value="">Select your favorite breed</option>
+//               <option value="sphynx">Sphynx</option>
+//               <option value="boring cat">Boring Cat</option>
+//             </select>
+//             {errors.favoriteBreed && (
+//               <p className="text-red-500 text-sm mt-1">
+//                 Favorite breed is required
+//               </p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label htmlFor="bio" className="block text-gray-700 font-bold mb-2">
+//               Bio
+//             </label>
+//             <textarea
+//               id="bio"
+//               {...register("bio")}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//           </div>
+//         </div>
+
+//         <div className="bg-white p-4 rounded-lg shadow-md">
+//           <h2 className="text-xl font-bold mb-4 text-center">Cat Details</h2>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="catName"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Name
+//             </label>
+//             <input
+//               id="catName"
+//               {...register("catName", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//             {errors.catName && (
+//               <p className="text-red-500 text-sm mt-1">Name is required</p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="catBreed"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Breed
+//             </label>
+//             <select
+//               id="catBreed"
+//               {...register("catBreed", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             >
+//               <option value="">Select your cat's breed</option>
+//               <option value="sphynx">Sphynx</option>
+//               <option value="boring cat">Boring Cat</option>
+//             </select>
+//             {errors.catBreed && (
+//               <p className="text-red-500 text-sm mt-1">Breed is required</p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="catAge"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Age
+//             </label>
+//             <input
+//               id="catAge"
+//               type="number"
+//               {...register("catAge", { required: true, min: 1, max: 30 })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//             {errors.catAge && (
+//               <p className="text-red-500 text-sm mt-1">
+//                 Age must be between 1 and 30
+//               </p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="favoriteFoods"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Favorite Foods
+//             </label>
+//             <input
+//               id="favoriteFoods"
+//               {...register("favoriteFoods", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             />
+//             {errors.favoriteFoods && (
+//               <p className="text-red-500 text-sm mt-1">
+//                 Favorite foods are required
+//               </p>
+//             )}
+//           </div>
+
+//           <div className="mb-4">
+//             <label
+//               htmlFor="disposition"
+//               className="block text-gray-700 font-bold mb-2"
+//             >
+//               Disposition
+//             </label>
+//             <select
+//               id="disposition"
+//               {...register("disposition", { required: true })}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//             >
+//               <option value="">Select your cat's disposition</option>
+//               <option value="cantankerous">Cantankerous</option>
+//               <option value="docile">Docile</option>
+//               <option value="menace">Menace</option>
+//               <option value="sweet as pie">Sweet as Pie</option>
+//             </select>
+//             {errors.disposition && (
+//               <p className="text-red-500 text-sm mt-1">
+//                 Disposition is required
+//               </p>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className="text-center mt-6">
+//         <button
+//           type="submit"
+//           className="bg-gradient-to-r from-blue-400 to-blue-600 text-dark-orange py-2 px-4 rounded-full border-2 border-dark-orange hover:from-blue-500 hover:to-blue-700 transition-transform transform hover:scale-105 shadow-lg"
+//         >
+//           Submit
+//         </button>
+//       </div>
 //     </form>
 //   );
 // };
 
 // export default Register;
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+
+//UP and DOWN - Mobile?
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import "../../styles.css";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
+  useEffect(() => {
+    console.log("Register component mounted");
+  }, []);
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8070/api/register",
+        data
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
-    // Implement your registration logic here
-    console.log("Registering with", email, password);
-    history.push("/login"); // Redirect to login page after registration
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="w-full max-w-md">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-        >
-          <h2 className="text-2xl mb-6 text-center">Register</h2>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="confirmPassword"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Register
-            </button>
-          </div>
-        </form>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="max-w-lg mx-auto p-6 bg-beige/70 rounded-lg shadow-lg mt-16"
+      style={{ paddingTop: "3rem" }}
+    >
+      <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+        <h2 className="text-xl font-bold mb-4 text-center">Owner Details</h2>
+
+        <div className="mb-4">
+          <label
+            htmlFor="username"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Username
+          </label>
+          <input
+            id="username"
+            {...register("username", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+          {errors.username && (
+            <p className="text-red-500 text-sm mt-1">Username is required</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            {...register("email", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">Valid email is required</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            {...register("password", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">Password is required</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="favoriteBreed"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Favorite Cat Breed
+          </label>
+          <select
+            id="favoriteBreed"
+            {...register("favoriteBreed", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Select your favorite breed</option>
+            <option value="sphynx">Sphynx</option>
+            <option value="boring cat">Boring Cat</option>
+          </select>
+          {errors.favoriteBreed && (
+            <p className="text-red-500 text-sm mt-1">
+              Favorite breed is required
+            </p>
+          )}
+        </div>
+
+        <div className="mb-4">
+        <label htmlFor="bio" className="block text-gray-700 font-bold mb-2">
+            Bio
+          </label>
+          <textarea
+            id="bio"
+            {...register("bio")}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
       </div>
-    </div>
+
+      <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+        <h2 className="text-xl font-bold mb-4 text-center">Cat Details</h2>
+
+        <div className="mb-4">
+          <label
+            htmlFor="catName"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Name
+          </label>
+          <input
+            id="catName"
+            {...register("catName", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+          {errors.catName && (
+            <p className="text-red-500 text-sm mt-1">Name is required</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="catBreed"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Breed
+          </label>
+          <select
+            id="catBreed"
+            {...register("catBreed", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Select your cat's breed</option>
+            <option value="sphynx">Sphynx</option>
+            <option value="boring cat">Boring Cat</option>
+          </select>
+          {errors.catBreed && (
+            <p className="text-red-500 text-sm mt-1">Breed is required</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="catAge"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Age
+          </label>
+          <input
+            id="catAge"
+            type="number"
+            {...register("catAge", { required: true, min: 1, max: 30 })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+          {errors.catAge && (
+            <p className="text-red-500 text-sm mt-1">
+              Age must be between 1 and 30
+            </p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="favoriteFoods"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Favorite Foods
+          </label>
+          <input
+            id="favoriteFoods"
+            {...register("favoriteFoods", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+          {errors.favoriteFoods && (
+            <p className="text-red-500 text-sm mt-1">
+              Favorite foods are required
+            </p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="disposition"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Disposition
+          </label>
+          <select
+            id="disposition"
+            {...register("disposition", { required: true })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Select your cat's disposition</option>
+            <option value="cantankerous">Cantankerous</option>
+            <option value="docile">Docile</option>
+            <option value="menace">Menace</option>
+            <option value="sweet as pie">Sweet as Pie</option>
+          </select>
+          {errors.disposition && (
+            <p className="text-red-500 text-sm mt-1">Disposition is required</p>
+          )}
+        </div>
+      </div>
+
+      <div className="text-center mt-6">
+        <button
+          type="submit"
+          className="bg-gradient-to-r from-blue-400 to-blue-600 text-dark-orange py-2 px-4 rounded-full border-2 border-dark-orange hover:from-blue-500 hover:to-blue-700 transition-transform transform hover:scale-105 shadow-lg"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
   );
 };
 

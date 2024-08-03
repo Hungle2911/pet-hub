@@ -13,7 +13,7 @@ module.exports = {
       red: "#0b0575",
       orange: "#130ade",
       "dark-orange": "#EC86B4",
-      beige: "#f7b267",
+      beige: "#e8e8e8",
       white: "#ffffff",
     },
     fontFamily: {
