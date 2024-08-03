@@ -15,10 +15,10 @@ datasource db {
 
 model User {
   id          Int        @id @default(autoincrement())
+  auth0Id     String     @unique // Add this to link with Auth0
   user_name   String?    @unique @db.VarChar(50)
   full_name   String     @db.VarChar(60)
   email       String     @unique @db.VarChar(50)
-  password    String     @db.VarChar(255)
   role        Role       @default(OWNER)
   latitude    Float?
   longitude   Float?
@@ -27,7 +27,7 @@ model User {
   catOwner    CatOwner?
   catSitter   CatSitter?
   created_at  DateTime   @default(now()) @db.Timestamp
-  updated_at  DateTime   @default(now()) @db.Timestamp
+  updated_at  DateTime   @updatedAt @db.Timestamp
 }
 
 model CatOwner {
