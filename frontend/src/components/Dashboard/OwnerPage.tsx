@@ -1,5 +1,5 @@
 import React from "react";
-import Search from "../Search/Search";
+import Search from "../Search/SearchForm";
 import ReviewsList from "../Reviews/ReviewsList";
 import BookingForm from "../Booking/BookingForm";
 import MyCalendar from "../Booking/Calendar";

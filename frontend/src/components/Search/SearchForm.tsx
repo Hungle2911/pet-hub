@@ -6,7 +6,7 @@ import { SearchFormInputs } from "../../types/types";
 interface SearchProps {
   onSubmit: SubmitHandler<SearchFormInputs>;
 }
-const Search = ({ onSubmit }: SearchProps) => {
+const SearchForm = ({ onSubmit }: SearchProps) => {
   const { register, handleSubmit, control, watch } =
     useForm<SearchFormInputs>();
 
@@ -114,4 +114,4 @@ const Search = ({ onSubmit }: SearchProps) => {
   );
 };
 
-export default Search;
+export default SearchForm;

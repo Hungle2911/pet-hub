@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Search from "../components/Search/Search";
+import SearchForm from "../components/Search/SearchForm";
 import axios from "axios";
 import CatSitterList from "../components/Search/CatSitterList";
 import MapView from "../components/Search/MapView";
@@ -25,6 +25,7 @@ const SearchSitterPage = () => {
     lat: 43.6426,
     lng: -79.387054,
   });
+  const [radius, setRadius] = useState<number>(5000);
   const onSubmit = async (data: SearchFormInputs) => {
     try {
       const response = await axios.get(
@@ -58,14 +59,18 @@ const SearchSitterPage = () => {
         <h2 className="text-2xl text-center mb-6">Search for Sitters</h2>
         <div className="flex flex-col md:flex-row mb-6">
           <div className="w-full md:w-1/3 pr-4 mb-4 md:mb-0">
-            <Search onSubmit={onSubmit} />
+            <SearchForm onSubmit={onSubmit} />
           </div>
           <div className="w-full md:w-6/10 pl-4">
             <CatSitterList catSitters={searchResults} />
           </div>
         </div>
         <div className="w-full h-96">
-          <MapView catSitters={searchResults} center={mapCenter} />
+          <MapView
+            catSitters={searchResults}
+            center={mapCenter}
+            radius={radius}
+          />
         </div>
       </div>
     </>
