@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import api from "../api/axios.config";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 
 interface FormData {
   first_name: string;
@@ -11,15 +10,7 @@ interface FormData {
   description?: string;
   role: "OWNER" | "PET_SITTER";
 }
-const onSubmit = async (data: FormData) => {
-  try {
-    const response = await api.post("/auth/register", data);
-    window.location.href = "/";
-    console.log("User registered successfully:", response.data);
-  } catch (error) {
-    console.error("Registration failed:", error);
-  }
-};
+
 const SignUpForm = () => {
   const [step, setStep] = useState(1);
   const {
@@ -27,28 +18,24 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  const { isAuthenticated, isLoading } = useAuth0();
-  const [userInfoNeeded, setUserInfoNeeded] = useState(false);
+  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
-  useEffect(() => {
-    const checkUserInfo = async () => {
-      if (isAuthenticated) {
-        try {
-          await api.get("/user-info");
-          window.location.href = "/";
-        } catch (error) {
-          if (axios.isAxiosError(error) && error.response?.status === 404) {
-            setUserInfoNeeded(true);
-          } else {
-            console.error("Error checking user info:", error);
-          }
-        }
-      }
-    };
 
-    checkUserInfo();
-  }, [isAuthenticated]);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const token = await getAccessTokenSilently();
+      const response = await api.post("/user/info", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.href = "/";
+      console.log("User registered successfully:", response.data);
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -57,7 +44,6 @@ const SignUpForm = () => {
   if (!isAuthenticated) {
     return <div>Please log in</div>;
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {step === 1 && (
