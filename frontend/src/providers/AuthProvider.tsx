@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   const onRedirectCallback = (appState: any) => {

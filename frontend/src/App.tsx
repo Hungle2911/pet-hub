@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/search" element={<SearchSitterPage />} />
+          {/* <Route path="/user-flow" element={<SitterPage />} /> */}
           {/* <Route path="/login" element={<Login />} />
           <Route path="/sitter-page" element={<SitterPage />} />
           <Route path="/owner-profile" element={<OwnerProfile />} />
