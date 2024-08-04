@@ -1,14 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
-// import Login from "./components/Auth/Login";
-// import Register from "./components/Auth/Register";
-// import OwnerPage from "./components/Dashboard/OwnerPage";
-// import SitterPage from "./components/Dashboard/SitterPage";
-// import OwnerProfile from "./components/Profiles/OwnerProfile";
-// import SitterProfile from "./components/Profiles/SitterProfile";
 import "./App.css";
 import Homepage from "./routes/HomePage";
-import SignUpForm from "./components/Auth/SignUpForm";
+import SignUpForm from "./routes/SignUpForm";
 import SearchSitterPage from "./routes/SearchSitterPage";
 
 function App() {
@@ -21,7 +15,6 @@ function App() {
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/search" element={<SearchSitterPage />} />
           {/* <Route path="/login" element={<Login />} />
-          <Route path="/owner-page" element={<OwnerPage />} />
           <Route path="/sitter-page" element={<SitterPage />} />
           <Route path="/owner-profile" element={<OwnerProfile />} />
           <Route path="/sitter-profile" element={<SitterProfile />} /> */}

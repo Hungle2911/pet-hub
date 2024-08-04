@@ -16,9 +16,9 @@ datasource db {
 model User {
   id          Int        @id @default(autoincrement())
   auth0Id     String     @unique // Add this to link with Auth0
-  user_name   String?    @unique @db.VarChar(50)
-  full_name   String     @db.VarChar(60)
-  email       String     @unique @db.VarChar(50)
+  first_name  String     @db.VarChar(60)
+  last_name   String     @db.VarChar(60)
+  email       String?    @unique @db.VarChar(50)
   role        Role       @default(OWNER)
   latitude    Float?
   longitude   Float?
