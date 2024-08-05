@@ -83,6 +83,7 @@ enum BookingStatus {
   PENDING
   ACCEPTED
   REJECTED
+  CANCELLED
   COMPLETED
 }
 

@@ -81,9 +81,7 @@ const SignUpForm = () => {
           />
           {errors.location && <span>{errors.location.message}</span>}
           <textarea
-            {...register("description", {
-              required: "Description is required",
-            })}
+            {...register("description")}
             placeholder="Please tell us a little bit about yourself :)"
           />
           {errors.description && <span>{errors.description.message}</span>}

@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
-import "./App.css";
 import Homepage from "./routes/HomePage";
 import SignUpForm from "./routes/SignUpForm";
 import SearchSitterPage from "./routes/SearchSitterPage";
+import SitterBooking from "./routes/SitterBooking";
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/search" element={<SearchSitterPage />} />
+          <Route path="/sitter-page" element={<SitterBooking />} />
           {/* <Route path="/user-flow" element={<SitterPage />} /> */}
           {/* <Route path="/login" element={<Login />} />
-          <Route path="/sitter-page" element={<SitterPage />} />
           <Route path="/owner-profile" element={<OwnerProfile />} />
           <Route path="/sitter-profile" element={<SitterProfile />} /> */}
         </Routes>
