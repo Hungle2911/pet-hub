@@ -4,12 +4,17 @@ import { Request } from "express-jwt";
 
 class UserControllers {
   async getUserInfo(req: Request, res: Response) {
-    // const auth0Id = req.auth?.sub
-    // try {
-    //   const getInfo = await prisma.
-    // } catch (error) {
-    //   console.error(error)
-    // }
+    const auth0Id = req.auth?.sub
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          auth0Id: auth0Id
+        }
+      })
+      res.json(user)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async register(req: Request, res: Response) {

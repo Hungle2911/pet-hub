@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogOutButton from "./Auth/LogOutButton";
 import LoginButton from "./Auth/LoginButton";
 import SignUpButton from "./Auth/SignUpButton";
@@ -8,19 +8,27 @@ import { useEffect, useState } from "react";
 import api from "../api/axios.config";
 import axios from "axios";
 
+interface UserInfo {
+  first_name: string;
+  role: "OWNER" | "PET_SITTER";
+}
 const NavBar = () => {
-  const { isAuthenticated, user } = useAuth0();
-  const [isRegistered, setIsRegistered] = useState(false);
+  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkUserInfo = async () => {
-      if (isAuthenticated) {
+      if (isAuthenticated && !isLoading) {
         try {
-          const response = await api.get("/user/info");
-          response.data && setIsRegistered(true);
+          const token = await getAccessTokenSilently();
+          const response = await api.get("/user/info", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setUserInfo(response.data);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response?.status === 404) {
-            setIsRegistered(false);
+            navigate("/user-info-form");
           } else {
             console.error("Error checking user info:", error);
           }
@@ -43,10 +51,21 @@ const NavBar = () => {
         </div>
         <div>
           {isAuthenticated ? (
-            <LogOutButton />
+            <>
+              {userInfo && (
+                <span className="mr-4">Hello, {userInfo.first_name}</span>
+              )}
+              {userInfo?.role === "PET_SITTER" && (
+                <Link to="/pet-sitter-form" className="mr-4">
+                  Update Sitter Info
+                </Link>
+              )}
+              <LogOutButton />
+            </>
           ) : (
             <>
-              <SignUpButton /> <LoginButton />
+              <SignUpButton />
+              <LoginButton />
             </>
           )}
         </div>
