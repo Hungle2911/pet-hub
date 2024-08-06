@@ -3,6 +3,7 @@ import { Response } from "express";
 import { Request } from "express-jwt";
 
 class UserControllers {
+  //Get user info
   async getUserInfo(req: Request, res: Response) {
     const auth0Id = req.auth?.sub
     try {
@@ -16,9 +17,10 @@ class UserControllers {
       console.error(error)
     }
   }
-
+//Register new user info
   async register(req: Request, res: Response) {
     const auth0Id = req.auth?.sub
+    const email = req.auth?.sub
     const {first_name, last_name, location, description, role} = req.body
     try {
       const user = await prisma.user.upsert({
@@ -27,8 +29,7 @@ class UserControllers {
           last_name,
           first_name,
           location,
-          description,
-          role,
+          description
         },
         create: {
           auth0Id: auth0Id as string,
@@ -37,7 +38,7 @@ class UserControllers {
           location,
           description,
           role,
-          email: req.auth?.email as string,
+          email: email as string,
         },
       });
   
@@ -46,5 +47,6 @@ class UserControllers {
       console.error(error)
     }
   }
+
 }
 export default new UserControllers

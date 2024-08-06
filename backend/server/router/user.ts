@@ -6,4 +6,5 @@ const router = Router();
 router.get('/info', jwtCheck, userController.getUserInfo);
 router.post('/info', jwtCheck, userController.register);
 
+
 export default router;

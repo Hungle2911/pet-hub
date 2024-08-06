@@ -62,10 +62,13 @@ model Cat {
 
 model Availability {
   id          Int       @id @default(autoincrement())
-  date        DateTime
+  start_date  DateTime
+  end_date    DateTime
   isAvailable Boolean
   catSitter   CatSitter @relation(fields: [catSitterId], references: [id])
   catSitterId Int
+
+  @@map("availabilities")
 }
 
 model Booking {

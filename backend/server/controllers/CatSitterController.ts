@@ -27,12 +27,12 @@ class CatSitterController {
         rate: { lte: Number(maxRate) },
         availability: startDate && endDate ? {
           some: {
-            date: {
-              gte: new Date(startDate as string),
-              lte: new Date(endDate as string),
-            },
-            isAvailable: true,
-          },
+            AND: [
+              { start_date: { lte: new Date(endDate as string) } },
+              { end_date: { gte: new Date(startDate as string) } },
+              { isAvailable: true }
+            ]
+          }
         } : undefined
       },
       include: {
