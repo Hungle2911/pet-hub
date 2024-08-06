@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import api from "../api/axios.config";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,8 +18,7 @@ interface Availability {
 }
 
 const SitterProfileEdit: React.FC = () => {
-  const { register, handleSubmit, control, setValue } =
-    useForm<PetSitterFormData>();
+  const { register, handleSubmit, setValue } = useForm<PetSitterFormData>();
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
   const { getAccessTokenSilently } = useAuth0();
   const fetchPetSitterData = async () => {
@@ -28,16 +27,18 @@ const SitterProfileEdit: React.FC = () => {
       const response = await api.get("/user/cat-sitter/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const { rate, experience, availabilities } = response.data;
-      setValue("rate", rate);
-      setValue("experience", experience);
-      setAvailabilities(
-        availabilities.map((av: any) => ({
-          ...av,
-          start_date: new Date(av.start_date),
-          end_date: new Date(av.end_date),
-        }))
-      );
+      if (response.data) {
+        const { rate, experience, availabilities } = response.data;
+        setValue("rate", rate);
+        setValue("experience", experience);
+        setAvailabilities(
+          availabilities.map((av: any) => ({
+            ...av,
+            start_date: new Date(av.start_date),
+            end_date: new Date(av.end_date),
+          }))
+        );
+      }
     } catch (error) {
       console.error("Error fetching pet sitter data:", error);
     }
@@ -50,8 +51,8 @@ const SitterProfileEdit: React.FC = () => {
   const onSubmit = async (data: PetSitterFormData) => {
     try {
       const token = await getAccessTokenSilently();
-      await api.put(
-        "/api/pet-sitter/profile",
+      await api.post(
+        "/user/cat-sitter/profile",
         {
           ...data,
           availabilities,
@@ -76,7 +77,7 @@ const SitterProfileEdit: React.FC = () => {
       const newAvailabilities = [...prev];
       newAvailabilities[index] = {
         ...newAvailabilities[index],
-        [field]: value,
+        [field]: field === "isAvailable" ? value === "true" : value,
       };
       return newAvailabilities;
     });
@@ -138,18 +139,14 @@ const SitterProfileEdit: React.FC = () => {
                 className="p-2 border rounded"
               />
               <select
-                value={av.isAvailable ? "available" : "unavailable"}
+                value={av.isAvailable ? "true" : "false"}
                 onChange={(e) =>
-                  handleAvailabilityChange(
-                    index,
-                    "isAvailable",
-                    e.target.value === "available"
-                  )
+                  handleAvailabilityChange(index, "isAvailable", e.target.value)
                 }
                 className="p-2 border rounded"
               >
-                <option value="available">Available</option>
-                <option value="unavailable">Unavailable</option>
+                <option value="true">Available</option>
+                <option value="false">Unavailable</option>
               </select>
               <button
                 type="button"

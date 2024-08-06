@@ -47,7 +47,7 @@ class UserControllers {
       console.error(error)
     }
   }
-  //For cat sitter type of user to see their current profile
+  //For cat sitter user to see their current profile
   async getSitterProfile(req:Request, res:Response) {
     const auth0Id = req.auth?.sub
     const user = await prisma.user.findUnique({
@@ -65,10 +65,36 @@ class UserControllers {
     }
     
   }
-  //For cat sitter type of user to update their profile
-  async editSitterProfile(req:Request, res:Response) {
+  //For cat sitter user to update their profile
+  async editSitterProfile(req: Request, res: Response) {
+    const auth0Id = req.auth?.sub
+    const { rate, experience, availabilities } = req.body;
+    console.log(req.body)
+    const user = await prisma.user.findUnique({
+      where: {
+        auth0Id: auth0Id
+      }
+    })
+    console.log(user)
     try {
-      const user = await prisma
+      console.log("Updating cat sitter profile for user:", user?.id);
+      const updatedSitter = await prisma.catSitter.update({
+        where: { userId: user!.id },
+        data: {
+          rate,
+          experience,
+          availability: {
+            deleteMany: {},
+            create: availabilities.map((av: any) => ({
+              start_date: av.start_date,
+              end_date: av.end_date,
+              isAvailable: av.isAvailable,
+            })),
+          },
+        },
+      });
+      res.json({updatedSitter});
+      
     } catch (error) {
       
     }
