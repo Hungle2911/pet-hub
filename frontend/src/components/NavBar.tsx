@@ -6,7 +6,6 @@ import Logo from "./Logo";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import api from "../api/axios.config";
-import axios from "axios";
 
 interface UserInfo {
   first_name: string;
@@ -26,12 +25,11 @@ const NavBar = () => {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUserInfo(response.data);
-        } catch (error) {
-          if (axios.isAxiosError(error) && error.response?.status === 404) {
+          if (!response.data) {
             navigate("/sign-up");
-          } else {
-            console.error("Error checking user info:", error);
           }
+        } catch (error) {
+          console.error("Error checking user info:", error);
         }
       }
     };
