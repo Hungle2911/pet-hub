@@ -47,6 +47,31 @@ class UserControllers {
       console.error(error)
     }
   }
-
+  //For cat sitter type of user to see their current profile
+  async getSitterProfile(req:Request, res:Response) {
+    const auth0Id = req.auth?.sub
+    const user = await prisma.user.findUnique({
+      where: {
+        auth0Id: auth0Id
+      }
+    })
+    try {
+      const petSitter = await prisma.catSitter.findUnique({
+        where: {userId : user?.id}
+      })
+      res.json(petSitter)
+    } catch (error) {
+      console.error(error)
+    }
+    
+  }
+  //For cat sitter type of user to update their profile
+  async editSitterProfile(req:Request, res:Response) {
+    try {
+      const user = await prisma
+    } catch (error) {
+      
+    }
+  }
 }
 export default new UserControllers

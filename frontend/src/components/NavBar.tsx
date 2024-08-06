@@ -28,7 +28,7 @@ const NavBar = () => {
           setUserInfo(response.data);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response?.status === 404) {
-            navigate("/user-info-form");
+            navigate("/sign-up");
           } else {
             console.error("Error checking user info:", error);
           }
@@ -56,7 +56,7 @@ const NavBar = () => {
                 <span className="mr-4">Hello, {userInfo.first_name}</span>
               )}
               {userInfo?.role === "PET_SITTER" && (
-                <Link to="/pet-sitter-form" className="mr-4">
+                <Link to="/sitter-profile/edit" className="mr-4">
                   Update Sitter Info
                 </Link>
               )}
