@@ -3,6 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import api from "../api/axios.config";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface PetSitterFormData {
   rate: number;
@@ -20,10 +21,13 @@ const SitterProfileEdit: React.FC = () => {
   const { register, handleSubmit, control, setValue } =
     useForm<PetSitterFormData>();
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
-
+  const { getAccessTokenSilently } = useAuth0();
   const fetchPetSitterData = async () => {
+    const token = await getAccessTokenSilently();
     try {
-      const response = await api.get("/user/cat-sitter/profile");
+      const response = await api.get("/user/cat-sitter/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const { rate, experience, availabilities } = response.data;
       setValue("rate", rate);
       setValue("experience", experience);
@@ -45,10 +49,17 @@ const SitterProfileEdit: React.FC = () => {
 
   const onSubmit = async (data: PetSitterFormData) => {
     try {
-      await api.put("/api/pet-sitter/profile", {
-        ...data,
-        availabilities,
-      });
+      const token = await getAccessTokenSilently();
+      await api.put(
+        "/api/pet-sitter/profile",
+        {
+          ...data,
+          availabilities,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);

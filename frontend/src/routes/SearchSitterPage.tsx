@@ -4,6 +4,7 @@ import axios from "axios";
 import CatSitterList from "../components/Search/CatSitterList";
 import MapView from "../components/Search/MapView";
 import { SearchFormInputs } from "../types/types";
+import api from "../api/axios.config";
 
 interface CatSitter {
   id: number;
@@ -42,17 +43,14 @@ const SearchSitterPage = () => {
 
   const fetchNearbySitters = async (center: { lat: number; lng: number }) => {
     try {
-      const response = await axios.get(
-        "http://localhost:8070/v1/api/cat-sitters/search",
-        {
-          params: {
-            latitude: center.lat,
-            longitude: center.lng,
-            maxDistance: 5,
-            maxRate: 1000,
-          },
-        }
-      );
+      const response = await api.get("/cat-sitters/search", {
+        params: {
+          latitude: center.lat,
+          longitude: center.lng,
+          maxDistance: 5,
+          maxRate: 1000,
+        },
+      });
       setSearchResults(response.data);
     } catch (error) {
       console.error("Error fetching nearby sitters:", error);
