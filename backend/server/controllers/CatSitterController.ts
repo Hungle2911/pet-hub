@@ -13,6 +13,7 @@ class CatSitterController {
       lon = Number(longitude);
     } else if (address) {
       const coordinates = await geocodeAddress(address as string);
+      console.log(coordinates);
     if (!coordinates) {
       return res.status(400).json({ error: 'Invalid address' });}
       lat = coordinates.lat

@@ -1,6 +1,7 @@
 import prisma from "../configs";
 import { Response } from "express";
 import { Request } from "express-jwt";
+import { geocodeAddress } from "../utilities/geocoder";
 
 class UserControllers {
   //Get user info
@@ -20,8 +21,10 @@ class UserControllers {
 //Register new user info
   async register(req: Request, res: Response) {
     const auth0Id = req.auth?.sub
-    const email = req.auth?.sub
+    // const email = req.auth?.sub
     const {first_name, last_name, location, description, role} = req.body
+    const coordinates = await geocodeAddress(location as string);
+    const {lat, lon} = coordinates ?? { lat: 0, lon: 0 };
     try {
       const user = await prisma.user.upsert({
         where: { auth0Id: auth0Id as string },
@@ -38,7 +41,9 @@ class UserControllers {
           location,
           description,
           role,
-          email: email as string,
+          longitude: lon,
+          latitude: lat
+          // email: email as string,
         },
       });
   
