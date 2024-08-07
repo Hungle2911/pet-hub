@@ -57,9 +57,13 @@ class UserControllers {
     })
     try {
       const petSitter = await prisma.catSitter.findUnique({
-        where: {userId : user?.id}
+        where: {userId : user?.id},
+        include: {
+          availability: true,
+        },
       })
-      res.json(petSitter)
+      console.log(petSitter);
+      res.json({rate: petSitter?.rate, experience: petSitter?.experience, availabilities: petSitter?.availability})
     } catch (error) {
       console.error(error)
     }
@@ -69,19 +73,29 @@ class UserControllers {
   async editSitterProfile(req: Request, res: Response) {
     const auth0Id = req.auth?.sub
     const { rate, experience, availabilities } = req.body;
-    console.log(req.body)
     const user = await prisma.user.findUnique({
       where: {
         auth0Id: auth0Id
       }
     })
-    console.log(user)
     try {
-      console.log("Updating cat sitter profile for user:", user?.id);
+      let catSitter = await prisma.catSitter.findUnique({
+        where: { userId: user!.id },
+      });
+  
+      if (!catSitter) {
+        catSitter = await prisma.catSitter.create({
+          data: {
+            userId: user!.id,
+            rate: Number(rate),
+            experience,
+          },
+        });
+      }
       const updatedSitter = await prisma.catSitter.update({
         where: { userId: user!.id },
         data: {
-          rate,
+          rate: Number(rate),
           experience,
           availability: {
             deleteMany: {},
@@ -94,9 +108,8 @@ class UserControllers {
         },
       });
       res.json({updatedSitter});
-      
     } catch (error) {
-      
+      console.error(error)
     }
   }
 }

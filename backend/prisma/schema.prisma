@@ -43,7 +43,7 @@ model CatSitter {
   user         User           @relation(fields: [userId], references: [id])
   userId       Int            @unique
   experience   String
-  rate         Float
+  rate         Int
   availability Availability[]
   bookings     Booking[]
 }
