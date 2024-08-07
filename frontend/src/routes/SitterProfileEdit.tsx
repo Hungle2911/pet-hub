@@ -4,17 +4,11 @@ import api from "../api/axios.config";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Availability } from "../types/types";
 
 interface PetSitterFormData {
   rate: number;
   experience: string;
-}
-
-interface Availability {
-  id?: number;
-  start_date: Date;
-  end_date: Date;
-  isAvailable: boolean;
 }
 
 const SitterProfileEdit: React.FC = () => {

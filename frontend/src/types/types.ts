@@ -8,6 +8,7 @@ export interface SearchFormInputs {
 export interface CatSitter {
   id: number;
   experience?: string; 
+  availability: Availability[]
   user: {
     name: string;
     latitude: number;
@@ -19,4 +20,10 @@ export interface CatSitter {
   };
   rate: number;
   averageRating: number | null;
+}
+export interface Availability {
+  id?: number;
+  start_date: Date;
+  end_date: Date;
+  isAvailable: boolean;
 }
