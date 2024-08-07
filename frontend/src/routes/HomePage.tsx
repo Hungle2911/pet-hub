@@ -58,7 +58,8 @@ const Homepage: React.FC = () => {
                 Reviews and Ratings
               </h3>
               <p className="mt-4 text-gray-600">
-                Leave and read reviews and ratings to ensure trust and quality
+                Share your reviews and read the ratings of both cat sitters and
+                cat owners to ensure an exceptional experience and reliable
                 service.
               </p>
             </div>
