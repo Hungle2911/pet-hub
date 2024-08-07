@@ -70,7 +70,7 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
           >
             <div>
               <h3>{selectedSitter.user.name}</h3>
-              <p>Rate: ${selectedSitter.rate}/hour</p>
+              <p>Rate: ${selectedSitter.rate}/day</p>
             </div>
           </InfoWindow>
         )}

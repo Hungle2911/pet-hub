@@ -5,6 +5,9 @@ import Homepage from "./routes/HomePage";
 import SignUpForm from "./routes/SignUpForm";
 import SearchSitterPage from "./routes/SearchSitterPage";
 
+
+
+
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -14,6 +17,8 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/search" element={<SearchSitterPage />} />
+          {/* <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} /> */}
           {/* <Route path="/user-flow" element={<SitterPage />} /> */}
           {/* <Route path="/login" element={<Login />} />
           <Route path="/sitter-page" element={<SitterPage />} />

@@ -11,7 +11,7 @@ const SitterProfile = () => {
       />
       <p className="text-lg">Name: Jane Doe</p>
       <p className="text-lg">Experience: 5 years</p>
-      <p className="text-lg">Rates: $20/hour</p>
+      <p className="text-lg">Rates: $20/day</p>
       <p className="text-lg">Availability: Weekends</p>
       <p className="text-lg">Reviews: 4.9 stars</p>
       <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">

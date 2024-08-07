@@ -7,3 +7,6 @@ body {
 margin: 0;
 
 }
+.placeholder-custom::placeholder {
+  color: #130ade;
+}

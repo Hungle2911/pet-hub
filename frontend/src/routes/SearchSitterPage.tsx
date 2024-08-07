@@ -5,6 +5,7 @@ import CatSitterList from "../components/Search/CatSitterList";
 import MapView from "../components/Search/MapView";
 import { SearchFormInputs } from "../types/types";
 
+
 interface CatSitter {
   id: number;
   user: {
@@ -85,28 +86,29 @@ const SearchSitterPage = () => {
       console.error("Error searching for sitters:", error);
     }
   };
+
   return (
-    <>
-      <div className="container mx-auto p-4">
-        <h2 className="text-2xl text-center mb-6">Search for Sitters</h2>
-        <div className="flex flex-col md:flex-row mb-6">
-          <div className="w-full md:w-1/3 pr-4 mb-4 md:mb-0">
-            <SearchForm onSubmit={onSubmit} />
-          </div>
-          <div className="w-full md:w-6/10 pl-4">
-            <CatSitterList catSitters={searchResults} />
-          </div>
+    <div className="container mx-auto p-4">
+      <div className="flex flex-col md:flex-row md:space-x-4">
+        <div className="bg-off-white p-4 rounded-lg shadow-md w-full md:w-1/2 mb-6 md:mb-0">
+          <h2 className="text-2xl text-center mb-6">Search for Sitters</h2>
+          <SearchForm onSubmit={onSubmit} />
         </div>
-        <div className="w-full h-96">
-          <MapView
-            catSitters={searchResults}
-            center={mapCenter}
-            radius={radius}
-          />
+        <div className="bg-off-white p-4 rounded-lg shadow-md w-full md:w-1/2">
+          <h2 className="text-2xl text-center mb-6">Available Cat Sitters</h2>
+          <CatSitterList catSitters={searchResults} />
         </div>
       </div>
-    </>
+      <div className="w-full h-96 mt-6">
+        <MapView
+          catSitters={searchResults}
+          center={mapCenter}
+          radius={radius}
+        />
+      </div>
+    </div>
   );
 };
 
 export default SearchSitterPage;
+

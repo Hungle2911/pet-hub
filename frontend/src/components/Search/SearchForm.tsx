@@ -13,7 +13,7 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
   const startDate = watch("startDate");
 
   return (
-    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="bg-off-white p-4 rounded-lg shadow-md">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label
@@ -25,8 +25,8 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
           <input
             {...register("address", { required: true })}
             id="address"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter full address"
+            className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-pink"
+            placeholder="Enter Full Address"
           />
         </div>
         <div className="mb-4">
@@ -35,7 +35,7 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
             htmlFor="startDate"
           >
             Start Date
-          </label>
+          </label >
           <Controller
             control={control}
             name="startDate"
@@ -44,8 +44,8 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
                 selected={field.value}
                 minDate={new Date()}
                 onChange={(date) => field.onChange(date)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholderText="Select start date"
+                className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-pink"
+                placeholderText="Select Start Date"
               />
             )}
           />
@@ -65,8 +65,8 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
                 selected={field.value}
                 minDate={startDate ? startDate : new Date()}
                 onChange={(date) => field.onChange(date)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholderText="Select end date"
+                className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-pink"
+                placeholderText="Select End Date"
               />
             )}
           />
@@ -76,14 +76,14 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="maxRate"
           >
-            Max Rate (per hour)
+            Max Rate (per day)
           </label>
           <input
             {...register("maxRate", { required: true, min: 0 })}
             type="number"
             id="maxRate"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter max rate"
+            className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-pink"
+            placeholder="Enter Max Rate"
           />
         </div>
         <div className="mb-4">
@@ -97,14 +97,14 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
             {...register("maxDistance", { required: true, min: 0 })}
             type="number"
             id="maxDistance"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter max distance"
+            className="hadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-pink"
+            placeholder="Enter Max Distance"
           />
         </div>
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-transparent text-pink py-2 px-4 rounded-full border-2 border-pink hover:bg-pink hover:text-white transition-transform transform hover:scale-105 shadow-lg"
           >
             Search
           </button>
@@ -115,3 +115,4 @@ const SearchForm = ({ onSubmit }: SearchProps) => {
 };
 
 export default SearchForm;
+

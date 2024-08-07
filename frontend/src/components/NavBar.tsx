@@ -30,25 +30,26 @@ const NavBar = () => {
 
     checkUserInfo();
   }, [isAuthenticated]);
+
   return (
-    <nav>
-      <div className=" mx-20 flex items-center justify-around">
-        <div className="flex items-center mx">
-          <Link to={"/"}>
+    <nav className="bg-gray-100">
+      <div className="mx-4 md:mx-20 flex items-center justify-between">
+        <div className="flex items-center">
+          <Link to="/">
             <Logo />
           </Link>
-          <Link to={"/search"} className="mx-4">
-            Search
-          </Link>
         </div>
-        <div>
-          {isAuthenticated ? (
-            <LogOutButton />
-          ) : (
-            <>
-              <SignUpButton /> <LoginButton />
-            </>
-          )}
+        <div className="flex flex-col items-center space-y-2 md:space-y-4">
+          <div className="flex space-x-2 md:space-x-4">
+            {isAuthenticated ? (
+              <LogOutButton />
+            ) : (
+              <>
+                <SignUpButton />
+                <LoginButton />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>
