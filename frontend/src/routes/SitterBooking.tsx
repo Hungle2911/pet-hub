@@ -1,14 +1,16 @@
 import { useParams } from "react-router-dom";
 import api from "../api/axios.config";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CatSitter } from "../types/types";
 
 const SitterBooking = () => {
   const { sitterId } = useParams();
-  console.log(sitterId);
+  const [sitterInfo, setSitterInfo] = useState<CatSitter>();
   const getSitterInfo = async () => {
     try {
       const response = await api.get(`/cat-sitters/profile/${sitterId}`);
-      console.log(response.data);
+      setSitterInfo(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -19,18 +21,18 @@ const SitterBooking = () => {
   return (
     <div className="container mx-auto px-6 py-4">
       <h2 className="text-2xl font-bold">Cat Sitter Profile</h2>
-      <p className="text-lg">Address: 761 College Street, ON, M9Z 3N5</p>
-      <p className="text-lg">Experience: 5 years</p>
-      <p className="text-lg">Rates: $20/hour</p>
-      <p className="text-lg">Description:</p>
-      <span className="text-sm">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas
-        recusandae maiores sapiente perspiciatis nihil doloribus vero laborum
-        accusamus iste necessitatibus. Sequi, rerum illum. Repellat aut suscipit
-        explicabo, sapiente non necessitatibus.
+      <span className="text-lg">
+        {sitterInfo?.user.first_name} {sitterInfo?.user.last_name}
       </span>
-      <p className="text-lg">Reviews: 4.9 stars</p>
-      <button>Book an appointment</button>
+      <p className="text-lg">Address: {sitterInfo?.user.location}</p>
+      <p className="text-lg">Description:</p>
+      <span className="text-lg">{sitterInfo?.user.description}</span>
+      <p className="text-lg">Experience: {sitterInfo?.experience}</p>
+      <p className="text-lg">Rates: ${sitterInfo?.rate}/night</p>
+      {/* <p className="text-lg">Reviews: 4.9 stars</p> */}
+      <button className="w-full bg-dark-orange text-white p-2 rounded hover:bg-blue-600">
+        Book an appointment
+      </button>
     </div>
   );
 };

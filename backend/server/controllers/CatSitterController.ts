@@ -55,7 +55,6 @@ class CatSitterController {
  }
  async getSitterProfile(req:Request, res:Response) {
   const {sitterId} = req.params
-  console.log(sitterId);
   try {
     const petSitter = await prisma.catSitter.findUnique({
       where: {id : Number(sitterId)},

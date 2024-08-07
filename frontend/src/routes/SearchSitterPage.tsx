@@ -3,19 +3,9 @@ import SearchForm from "../components/Search/SearchForm";
 import axios from "axios";
 import CatSitterList from "../components/Search/CatSitterList";
 import MapView from "../components/Search/MapView";
-import { SearchFormInputs } from "../types/types";
+import { CatSitter, SearchFormInputs } from "../types/types";
 import api from "../api/axios.config";
 
-interface CatSitter {
-  id: number;
-  user: {
-    name: string;
-    latitude: number;
-    longitude: number;
-  };
-  rate: number;
-  averageRating: number | null;
-}
 interface Coordinate {
   lat: number;
   lng: number;
