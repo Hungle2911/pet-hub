@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
+
 interface CatSitter {
   id: number;
   user: {
-    name: string;
+    first_name: string;
+    last_name: string;
+    description: string;
   };
   rate: number;
-  averageRating: number | null;
+  // averageRating: number | null;
 }
 
 interface CatSitterListProps {
@@ -17,9 +21,17 @@ const CatSitterList = ({ catSitters }: CatSitterListProps) => {
       <ul>
         {catSitters.map((sitter) => (
           <li key={sitter.id} className="mb-2 p-2 border rounded">
-            <h4 className="font-bold">{sitter.user.name}</h4>
-            <p>Rate: ${sitter.rate}/hour</p>
-            <p>Rating: {sitter.averageRating?.toFixed(1) || "N/A"}</p>
+            <h4 className="font-bold">
+              {sitter.user.first_name} {sitter.user.last_name}
+            </h4>
+            <p>Rate: ${sitter.rate}/night</p>
+            <p>Description: {sitter.user.description}</p>
+            {/* <p>Rating: {sitter.averageRating?.toFixed(1) || "N/A"}</p> */}
+            <Link to={`/sitter-profile/${sitter.id}`}>
+              <button className="w-full bg-dark-orange text-white p-2 rounded hover:bg-blue-600">
+                Book now
+              </button>
+            </Link>
           </li>
         ))}
       </ul>

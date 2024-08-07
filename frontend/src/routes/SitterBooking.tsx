@@ -1,4 +1,21 @@
+import { useParams } from "react-router-dom";
+import api from "../api/axios.config";
+import { useEffect } from "react";
+
 const SitterBooking = () => {
+  const { sitterId } = useParams();
+  console.log(sitterId);
+  const getSitterInfo = async () => {
+    try {
+      const response = await api.get(`/cat-sitters/profile/${sitterId}`);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getSitterInfo();
+  }, [sitterId]);
   return (
     <div className="container mx-auto px-6 py-4">
       <h2 className="text-2xl font-bold">Cat Sitter Profile</h2>

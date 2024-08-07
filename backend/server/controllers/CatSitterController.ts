@@ -46,12 +46,30 @@ class CatSitterController {
       const distance = calculateDistance(lat!, lon!, sitter.user.latitude!, sitter.user.longitude!);
       return distance <= Number(maxDistance);
     });
-
+    console.log(nearbyCatSitters);
     res.json(nearbyCatSitters);
   } catch (error) {
     console.error('Error searching cat sitters:', error);
     res.status(500).json({ error: 'Error searching cat sitters' });
   }
  }
+ async getSitterProfile(req:Request, res:Response) {
+  const {sitterId} = req.params
+  console.log(sitterId);
+  try {
+    const petSitter = await prisma.catSitter.findUnique({
+      where: {id : Number(sitterId)},
+      include: {
+        availability: true,
+        user: true,
+      },
+    })
+    // console.log(petSitter);
+    res.json(petSitter)
+  } catch (error) {
+    console.error(error)
+  }
+  
+}
 }
 export default new CatSitterController
