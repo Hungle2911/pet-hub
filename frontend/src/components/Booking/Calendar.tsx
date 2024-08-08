@@ -4,6 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CatSitter } from "../../types/types";
 import api from "../../api/axios.config";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Flip, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface BookingModalProps {
   sitterInfo: CatSitter;
@@ -42,6 +44,17 @@ const BookingCalendarModal = ({ sitterInfo, onClose }: BookingModalProps) => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(
+        "Your request was send, please wait for your pet sitter to confirm it! 🐱",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          transition: Flip,
+          onClose: () => {
+            console.log("hi");
           },
         }
       );
@@ -85,6 +98,7 @@ const BookingCalendarModal = ({ sitterInfo, onClose }: BookingModalProps) => {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
