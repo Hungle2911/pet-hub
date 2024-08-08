@@ -30,7 +30,7 @@ const BookingCalendarModal = ({ sitterInfo, onClose }: BookingModalProps) => {
     );
   };
   const handleSubmit = async () => {
-    const token = getAccessTokenSilently();
+    const token = await getAccessTokenSilently();
     try {
       const response = await api.post(
         "/booking",
