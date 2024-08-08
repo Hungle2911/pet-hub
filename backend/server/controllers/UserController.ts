@@ -42,8 +42,13 @@ class UserControllers {
           description,
           role,
           longitude: lon,
-          latitude: lat
+          latitude: lat,
           // email: email as string,
+          ...(role === 'OWNER' && {
+            catOwner: {
+              create: {} 
+            }
+          })
         },
       });
   
