@@ -3,11 +3,13 @@ import api from "../api/axios.config";
 import { useEffect, useState } from "react";
 import { CatSitter } from "../types/types";
 import BookingCalendarModal from "../components/Booking/Calendar";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SitterBooking = () => {
   const { sitterId } = useParams();
   const [sitterInfo, setSitterInfo] = useState<CatSitter>();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const getSitterInfo = async () => {
     try {
       const response = await api.get(`/cat-sitters/profile/${sitterId}`);
@@ -17,19 +19,25 @@ const SitterBooking = () => {
       console.error(error);
     }
   };
-  const onBook = () => {
-    console.log(sitterInfo?.availability);
+
+  const onClick = () => {
+    if (isAuthenticated) {
+      setShowModal(true);
+    } else {
+      loginWithRedirect();
+    }
   };
+
   useEffect(() => {
     getSitterInfo();
   }, [sitterId]);
+
   return (
     <>
       {showModal && (
         <BookingCalendarModal
           onClose={() => setShowModal(false)}
-          availability={sitterInfo?.availability!}
-          onBook={onBook}
+          sitterInfo={sitterInfo!}
         />
       )}
       <div className="container mx-auto px-6 py-4">
@@ -45,9 +53,7 @@ const SitterBooking = () => {
         {/* <p className="text-lg">Reviews: 4.9 stars</p> */}
         <button
           className="w-full bg-dark-orange text-white p-2 rounded hover:bg-blue-600"
-          onClick={() => {
-            setShowModal(true);
-          }}
+          onClick={onClick}
         >
           Book an appointment
         </button>

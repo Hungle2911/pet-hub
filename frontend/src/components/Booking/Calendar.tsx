@@ -1,33 +1,26 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Availability } from "../../types/types";
-
-interface BookingFormData {
-  startDate: Date;
-  endDate: Date;
-}
+import { CatSitter } from "../../types/types";
+import api from "../../api/axios.config";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface BookingModalProps {
-  availability: Availability[];
+  sitterInfo: CatSitter;
   onClose: () => void;
-  onBook: (startDate: Date, endDate: Date) => void;
 }
 
-const BookingCalendarModal = ({
-  availability,
-  onBook,
-  onClose,
-}: BookingModalProps) => {
+const BookingCalendarModal = ({ sitterInfo, onClose }: BookingModalProps) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleDateChange = (dates: [Date | null, Date | null]) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
   };
-
+  const { availability, id } = sitterInfo;
   const isAvailable = (date: Date) => {
     return availability.some(
       (av) =>
@@ -36,10 +29,25 @@ const BookingCalendarModal = ({
         date <= new Date(av.end_date)
     );
   };
-
-  const handleBook = () => {
-    if (startDate && endDate) {
-      onBook(startDate, endDate);
+  const handleSubmit = async () => {
+    const token = getAccessTokenSilently();
+    try {
+      const response = await api.post(
+        "/booking",
+        {
+          startDate,
+          endDate,
+          catSitterId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -63,7 +71,7 @@ const BookingCalendarModal = ({
         </div>
         <div className="flex justify-end">
           <button
-            onClick={handleBook}
+            onClick={handleSubmit}
             disabled={!startDate || !endDate}
             className="bg-dark-orange text-white px-4 py-2 rounded disabled:opacity-50"
           >

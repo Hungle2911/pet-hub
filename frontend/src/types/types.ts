@@ -27,3 +27,8 @@ export interface Availability {
   end_date: Date;
   isAvailable: boolean;
 }
+
+interface BookingFormData {
+  startDate: Date;
+  endDate: Date;
+}
