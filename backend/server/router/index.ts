@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import { Router } from 'express';
 import userRouter from './user'
 import bookingRouter from './booking'
 import catSitterRouter from './cat_sitter'

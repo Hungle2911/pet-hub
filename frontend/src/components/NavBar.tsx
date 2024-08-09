@@ -11,6 +11,7 @@ interface UserInfo {
   first_name: string;
   role: "OWNER" | "PET_SITTER";
 }
+
 const NavBar = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -36,11 +37,12 @@ const NavBar = () => {
 
     checkUserInfo();
   }, [isAuthenticated]);
+
   return (
-    <nav>
-      <div className=" mx-20 flex items-center justify-around">
-        <div className="flex items-center mx">
-          <Link to={"/"}>
+    <nav className="bg-gray-100">
+      <div className="mx-4 md:mx-20 flex items-center justify-between">
+        <div className="flex items-center">
+          <Link to="/">
             <Logo />
           </Link>
           <Link to={"/search"} className="mx-4">

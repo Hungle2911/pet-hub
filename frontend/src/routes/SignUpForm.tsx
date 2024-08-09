@@ -50,8 +50,8 @@ const SignUpForm = () => {
         <div>
           <h2>Are you signing up as:</h2>
           <select {...register("role", { required: true })}>
-            <option value="OWNER">Owner</option>
-            <option value="PET_SITTER">Pet sitter</option>
+            <option value="OWNER">Cat Owner</option>
+            <option value="PET_SITTER">Cat Sitter</option>
           </select>
           {errors.role && <span>{errors.role.message}</span>}
           <button type="button" onClick={nextStep}>

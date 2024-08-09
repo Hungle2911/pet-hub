@@ -11,8 +11,9 @@ const LoginButton = () => {
   // };
   return (
     <button
-      onClick={() => loginWithRedirect()}
-      className="bg-orange text-white py-2 px-4 rounded"
+      onClick={handleLogin}
+      //onClick={() => loginWithRedirect()}
+      className="bg-off-white text-grey py-1 px-2 md:py-2 md:px-4 rounded border border-grey-500 text-sm md:text-base"
     >
       Login
     </button>
@@ -20,3 +21,4 @@ const LoginButton = () => {
 };
 
 export default LoginButton;
+
