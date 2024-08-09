@@ -90,7 +90,7 @@ const SitterProfileEdit: React.FC = () => {
 
   return (
   <div className="max-w-2xl mx-auto mt-8 p-6 bg-pink-100 rounded-lg shadow-lg border-2 border-pink-400">
-    <h1 className="text-2xl font-bold mb-6 text-custom-blue-500">Pet Sitter Profile</h1>
+    <h1 className="text-2xl font-bold mb-6 text-gray-500">Pet Sitter Profile</h1>
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <label htmlFor="rate" className="block mb-1">Rate Per Day ($)</label>

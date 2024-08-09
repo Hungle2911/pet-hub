@@ -52,7 +52,7 @@ const SitterBooking = () => {
           <p className="text-lg text-gray-700">
             Address: {sitterInfo?.user.location}
           </p>
-          <p className="text-lg text-gray-700 font-bold">Description:</p>
+          <p className="text-lg text-gray-700">Description:</p>
           <span className="block text-lg text-gray-700">
             {sitterInfo?.user.description}
           </span>

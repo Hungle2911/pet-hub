@@ -80,13 +80,14 @@ const BookingCalendarModal = ({ sitterInfo, onClose }: BookingModalProps) => {
             filterDate={isAvailable}
             inline
             className="border p-2 rounded"
+            disabledKeyboardNavigation
           />
         </div>
         <div className="flex justify-end">
           <button
             onClick={handleSubmit}
             disabled={!startDate || !endDate}
-            className="bg-dark-orange text-white px-4 py-2 rounded disabled:opacity-50"
+            className="bg-pink text-white px-4 py-2 rounded disabled:opacity-50"
           >
             Book
           </button>
