@@ -17,10 +17,6 @@ function App() {
           <Route path="/search" element={<SearchSitterPage />} />
           <Route path="/sitter-profile/:sitterId" element={<SitterBooking />} />
           <Route path="/sitter-profile/edit" element={<SitterProfileEdit />} />
-          {/* <Route path="/user-flow" element={<SitterPage />} /> */}
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/owner-profile" element={<OwnerProfile />} />
-          <Route path="/sitter-profile" element={<SitterProfile />} /> */}
         </Routes>
       </main>
     </div>
