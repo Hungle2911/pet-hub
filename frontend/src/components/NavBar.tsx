@@ -39,17 +39,14 @@ const NavBar = () => {
   }, [isAuthenticated]);
 
   return (
-    <nav className="bg-gray-100">
+    <nav className="bg-gray-100 navbar-container">
       <div className="mx-4 md:mx-20 flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/">
             <Logo />
           </Link>
-          <Link to={"/search"} className="mx-4">
-            Search
-          </Link>
         </div>
-        <div>
+        <div className="flex space-x-4">
           {isAuthenticated ? (
             <>
               {userInfo && (
