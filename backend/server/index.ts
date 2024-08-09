@@ -5,7 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors')
-const PORT = process.env.PORT || 8060;
+const PORT = process.env.PORT || 8070;
 const app = express();
 import index from './router/index'
 

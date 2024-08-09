@@ -3,7 +3,7 @@
     "@auth0/auth0-react": "^2.2.4",
     "@faker-js/faker": "^8.4.1",
     "@googlemaps/google-maps-services-js": "^3.4.0",
-    "@prisma/client": "^5.17.0",
+    "@prisma/client": "^5.18.0",
     "@react-google-maps/api": "^2.19.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -23,7 +23,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.0.0",
     "nodemon": "^3.1.4",
-    "prisma": "^5.17.0",
+    "prisma": "^5.18.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
