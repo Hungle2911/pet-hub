@@ -5,6 +5,7 @@ import SignUpForm from "./routes/SignUpForm";
 import SearchSitterPage from "./routes/SearchSitterPage";
 import SitterBooking from "./routes/SitterBooking";
 import SitterProfileEdit from "./routes/SitterProfileEdit";
+import SitterAppointment from "./routes/SitterAppointment";
 
 function App() {
   return (
@@ -17,10 +18,11 @@ function App() {
           <Route path="/search" element={<SearchSitterPage />} />
           <Route path="/sitter-profile/:sitterId" element={<SitterBooking />} />
           <Route path="/sitter-profile/edit" element={<SitterProfileEdit />} />
+          <Route path="/appointment" element={<SitterAppointment />} />
           {/* <Route path="/user-flow" element={<SitterPage />} /> */}
           {/* <Route path="/login" element={<Login />} />
           <Route path="/owner-profile" element={<OwnerProfile />} />
-          <Route path="/sitter-profile" element={<SitterProfile />} /> */}
+           */}
         </Routes>
       </main>
     </div>
