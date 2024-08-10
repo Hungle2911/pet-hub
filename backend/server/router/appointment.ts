@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', jwtCheck, appointmentController.getAppointmentRequest);
 router.put('/confirm', jwtCheck, appointmentController.confirmAppointment);
-router.get('/', jwtCheck, appointmentController.getAppointmentRequest);
+router.put('/reject', jwtCheck, appointmentController.rejectAppointment);
 
 
 
