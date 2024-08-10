@@ -3,7 +3,7 @@ import appointmentController from '../controllers/AppointmentController';
 import jwtCheck from '../middlewares/auth';
 const router = Router();
 
-router.post('/', jwtCheck, appointmentController.getAppointmentRequest);
+router.get('/', jwtCheck, appointmentController.getAppointmentRequest);
 
 
 export default router;

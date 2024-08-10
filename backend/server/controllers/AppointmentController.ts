@@ -8,10 +8,46 @@ class AppointmentController {
     try {
       const user = await prisma.user.findUnique({
         where: { auth0Id },
-        include: { catSitter: true },
+        include: { catSitter: true, catOwner: true },
       });
+      
+    let requestAppointments;
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (user.role === 'PET_SITTER' && user.catSitter) {
+      requestAppointments = await prisma.booking.findMany({
+        where: {
+          catSitterId: user.catSitter.id,
+          status: 'PENDING',
+        },
+        include: {
+          catOwner: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      });
+    } else if (user.role === 'OWNER' && user.catOwner) {
+      requestAppointments = await prisma.booking.findMany({
+        where: {
+          catOwnerId: user.catOwner.id,
+        },
+        include: {
+          catSitter: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      });
+    } else {
+      return res.status(400).json({ message: 'Invalid user role or missing profile' });
+    }
 
-      res.json({message: 'Your appointment was booked, please wait for your pet sitter to confirm it'})
+    res.json(requestAppointments);
+      res.json({message: 'Your appointment was confirmed.'})
     } catch (error) {
       console.error(error)
     }
