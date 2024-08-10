@@ -32,3 +32,7 @@ interface BookingFormData {
   startDate: Date;
   endDate: Date;
 }
+
+interface AppointmentRequestProps {
+  
+}
