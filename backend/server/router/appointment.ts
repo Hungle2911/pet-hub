@@ -4,6 +4,9 @@ import jwtCheck from '../middlewares/auth';
 const router = Router();
 
 router.get('/', jwtCheck, appointmentController.getAppointmentRequest);
+router.put('/confirm', jwtCheck, appointmentController.confirmAppointment);
+router.get('/', jwtCheck, appointmentController.getAppointmentRequest);
+
 
 
 export default router;

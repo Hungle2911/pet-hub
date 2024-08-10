@@ -3,6 +3,7 @@ import { Request } from "express-jwt";
 import prisma from "../configs";
 
 class AppointmentController {
+  //Get: fetch user appointment request
   async getAppointmentRequest(req: Request, res: Response) {
     const auth0Id = req.auth?.sub
     try {
@@ -47,12 +48,33 @@ class AppointmentController {
     }
 
     res.json(requestAppointments);
-      res.json({message: 'Your appointment was confirmed.'})
     } catch (error) {
       console.error(error)
     }
   }
+// confirm appointment
 
+async confirmAppointment(req: Request, res: Response) {
+  const appointmentId = parseInt(req.body.id)
+  console.log(appointmentId);
+  try {
+    const updatedAppointment = await prisma.booking.update({
+      where: { id: appointmentId },
+      data: { status: 'ACCEPTED' },
+      include: {
+        catOwner: {
+          include: { user: true }
+        },
+        catSitter: {
+          include: { user: true }
+        }
+      }
+    });
+    res.json({message: 'Appointment was confirmed'})
+  } catch (error) {
+    console.error(error)
+  }
+}
   
 }
 export default new AppointmentController();

@@ -1,4 +1,5 @@
 import { formatDate } from "../../utilities/date_converter";
+import ConfirmButton from "./ConfirmButton";
 
 const AppointmentRequest = ({ data }: any) => {
   return (
@@ -34,9 +35,7 @@ const AppointmentRequest = ({ data }: any) => {
               <span className="font-semibold">{appointment.status}</span>
             </div>
             <div className="mt-4 flex space-x-2">
-              <button className="px-4 py-2 bg-beige text-white rounded-lg hover:bg-green-600 transition">
-                Confirm
-              </button>
+              <ConfirmButton id={appointment.id} />
               <button className="px-4 py-2 bg-red text-white rounded-lg hover:bg-red-600 transition">
                 Reject
               </button>
