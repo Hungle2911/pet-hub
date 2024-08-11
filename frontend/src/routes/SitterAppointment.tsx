@@ -3,6 +3,7 @@ import api from "../api/axios.config";
 import AppointmentRequest from "../components/Appointment/AppointmentRequest";
 import { useAuth0 } from "@auth0/auth0-react";
 import UpcomingAppointment from "../components/Appointment/UpcomingAppointment";
+import Loading from "../components/Loading/Loading";
 
 const SitterAppointment = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -55,7 +56,7 @@ const SitterAppointment = () => {
   }, [activeTab, userType]);
 
   if (isLoading || userType === null) {
-    return <div className="text-center mt-8">Loading...</div>;
+    return <Loading />;
   }
 
   return (

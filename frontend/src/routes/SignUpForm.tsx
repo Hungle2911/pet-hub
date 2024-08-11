@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import api from "../api/axios.config";
 import { useAuth0 } from "@auth0/auth0-react";
+import Loading from "../components/Loading/Loading";
 
 interface FormData {
   first_name: string;
@@ -38,7 +39,7 @@ const SignUpForm = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!isAuthenticated) {
