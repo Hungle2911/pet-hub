@@ -58,9 +58,9 @@ const NavBar = () => {
                   <Link to="/sitter-profile/edit" className="mr-4">
                     Update Sitter Info
                   </Link>
-                  <Link to="/appointment">My appointment</Link>
                 </>
               )}
+              <Link to="/appointment">My appointment</Link>
               <LogOutButton />
             </>
           ) : (

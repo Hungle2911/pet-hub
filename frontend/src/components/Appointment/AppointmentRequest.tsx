@@ -2,7 +2,12 @@ import { formatDate } from "../../utilities/date_converter";
 import ConfirmButton from "./ConfirmButton";
 import RejectButton from "./RejectButton";
 
-const AppointmentRequest = ({ data }: any) => {
+interface AppointmentRequestProps {
+  data: any[];
+  userType: "owner" | "sitter";
+}
+
+const AppointmentRequest = ({ data, userType }: AppointmentRequestProps) => {
   return (
     <>
       <div className="text-xl font-semibold mb-4">Appointment Request</div>
@@ -13,10 +18,11 @@ const AppointmentRequest = ({ data }: any) => {
             className="border-2 p-4 rounded-lg border-orange bg-white shadow-sm"
           >
             <div>
-              Requester:{" "}
+              {userType === "owner" ? "Provider: " : "Requester: "}
               <span className="font-semibold">
-                {appointment.catOwner.user.first_name}{" "}
-                {appointment.catOwner.user.last_name}
+                {userType === "owner"
+                  ? `${appointment.catSitter.user.first_name} ${appointment.catSitter.user.last_name}`
+                  : `${appointment.catOwner.user.first_name} ${appointment.catOwner.user.last_name}`}
               </span>
             </div>
             <div>
@@ -35,10 +41,12 @@ const AppointmentRequest = ({ data }: any) => {
               Status:{" "}
               <span className="font-semibold">{appointment.status}</span>
             </div>
-            <div className="mt-4 flex space-x-2">
-              <ConfirmButton id={appointment.id} />
-              <RejectButton id={appointment.id} />
-            </div>
+            {userType === "sitter" && (
+              <div className="mt-4 flex space-x-2">
+                <ConfirmButton id={appointment.id} />
+                <RejectButton id={appointment.id} />
+              </div>
+            )}
           </li>
         ))}
       </ul>
