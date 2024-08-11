@@ -53,10 +53,13 @@ const NavBar = () => {
                 <span className="mr-4">Hello, {userInfo.first_name}</span>
               )}
               {userInfo?.role === "PET_SITTER" && (
-                <Link to="/sitter-profile/edit" className="mr-4">
-                  Update Sitter Info
-                </Link>
+                <>
+                  <Link to="/sitter-profile/edit" className="mr-4">
+                    Update Sitter Info
+                  </Link>
+                </>
               )}
+              <Link to="/appointment">My appointment</Link>
               <LogOutButton />
             </>
           ) : (
