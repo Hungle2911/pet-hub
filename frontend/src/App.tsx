@@ -19,10 +19,6 @@ function App() {
           <Route path="/sitter-profile/:sitterId" element={<SitterBooking />} />
           <Route path="/sitter-profile/edit" element={<SitterProfileEdit />} />
           <Route path="/appointment" element={<SitterAppointment />} />
-          {/* <Route path="/user-flow" element={<SitterPage />} /> */}
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/owner-profile" element={<OwnerProfile />} />
-           */}
         </Routes>
       </main>
     </div>

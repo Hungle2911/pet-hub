@@ -13,39 +13,39 @@ interface FormData {
   favorite_breed?: string;
 }
 
-// // const SignUpForm = () => {
-// //   const [step, setStep] = useState(1);
-// //   const {
-// //     register,
-// //     handleSubmit,
-// //     formState: { errors },
-// //   } = useForm<FormData>();
-// //   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-// //   const nextStep = () => setStep(step + 1);
-// //   const prevStep = () => setStep(step - 1);
+// const SignUpForm = () => {
+//   const [step, setStep] = useState(1);
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm<FormData>();
+//   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+//   const nextStep = () => setStep(step + 1);
+//   const prevStep = () => setStep(step - 1);
 
-// //   const onSubmit = async (data: FormData) => {
-// //     try {
-// //       const token = await getAccessTokenSilently();
-// //       const response = await api.post("/user/info", data, {
-// //         headers: {
-// //           Authorization: `Bearer ${token}`,
-// //         },
-// //       });
-// //       window.location.href = "/";
-// //       console.log("User registered successfully:", response.data);
-// //     } catch (error) {
-// //       console.error("Registration failed:", error);
-// //     }
-// //   };
+//   const onSubmit = async (data: FormData) => {
+//     try {
+//       const token = await getAccessTokenSilently();
+//       const response = await api.post("/user/info", data, {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//       window.location.href = "/";
+//       console.log("User registered successfully:", response.data);
+//     } catch (error) {
+//       console.error("Registration failed:", error);
+//     }
+//   };
 
-// //   if (isLoading) {
-// //     return <div>Loading...</div>;
-// //   }
+//   if (isLoading) {
+//     return <div>Loading...</div>;
+//   }
 
-// //   if (!isAuthenticated) {
-// //     return <div>Please log in</div>;
-// //   }
+//   if (!isAuthenticated) {
+//     return <div>Please log in</div>;
+//   }
 
 const SignUpForm = () => {
   const [step, setStep] = useState(1);
@@ -80,6 +80,7 @@ const SignUpForm = () => {
   // if (!isAuthenticated) {
   //   return <div>Please log in</div>;
   // }
+  
   return (
     <div className="max-w-2xl mx-auto mt-8 p-6 bg-pink-100 rounded-lg shadow-lg border-2 border-pink-400">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

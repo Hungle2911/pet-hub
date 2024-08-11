@@ -60,23 +60,23 @@ const SitterAppointment = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="max-w-2xl mx-auto mt-8 p-6 bg-pink-100 rounded-lg shadow-lg border-2 border-pink-400">
       <div className="flex mb-4">
         <button
-          className={`mr-2 px-4 py-2 rounded ${
+          className={`mr-2 px-4 py-2 rounded-full transition-transform transform hover:scale-105 shadow-lg ${
             activeTab === "request"
-              ? "bg-orange text-white"
-              : "bg-gray-200 text-gray-700"
+              ? "bg-pink text-white"
+              : "bg-transparent border-2 border-pink text-pink"
           }`}
           onClick={() => setActiveTab("request")}
         >
           Appointment Requests
         </button>
         <button
-          className={`px-4 py-2 rounded ${
+          className={`px-4 py-2 rounded-full transition-transform transform hover:scale-105 shadow-lg ${
             activeTab === "upcoming"
-              ? "bg-orange text-white"
-              : "bg-gray-200 text-gray-700"
+              ? "bg-pink text-white"
+              : "bg-transparent border-2 border-pink text-pink"
           }`}
           onClick={() => setActiveTab("upcoming")}
         >

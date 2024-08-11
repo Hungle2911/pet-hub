@@ -36,7 +36,7 @@ const NavBar = () => {
     };
 
     checkUserInfo();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isLoading, getAccessTokenSilently, navigate]);
 
   return (
     <nav className="bg-gray-100 navbar-container">
@@ -53,13 +53,13 @@ const NavBar = () => {
                 <span className="mr-4">Hello, {userInfo.first_name}</span>
               )}
               {userInfo?.role === "PET_SITTER" && (
-                <>
-                  <Link to="/sitter-profile/edit" className="mr-4">
-                    Update Sitter Info
-                  </Link>
-                </>
+                <Link to="/sitter-profile/edit" className="mr-4">
+                  Update Sitter Info
+                </Link>
               )}
-              <Link to="/appointment">My appointment</Link>
+              <Link to="/appointment" className="mr-4">
+                My Appointment
+              </Link>
               <LogOutButton />
             </>
           ) : (
