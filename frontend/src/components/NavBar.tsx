@@ -15,8 +15,9 @@ interface UserInfo {
 const NavBar = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   useEffect(() => {
     const checkUserInfo = async () => {
       if (isAuthenticated && !isLoading) {
@@ -50,17 +51,40 @@ const NavBar = () => {
           {isAuthenticated ? (
             <>
               {userInfo && (
-                <span className="mr-4">Hello, {userInfo.first_name}</span>
+                <div className="relative">
+                  <button
+                    onClick={toggleDropdown}
+                    className="text-black focus:outline-none mx-3"
+                  >
+                    Hello, {userInfo.first_name}
+                  </button>
+                  <LogOutButton />
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-black hover:bg-gray-200"
+                      >
+                        Profile
+                      </Link>
+                      {userInfo?.role === "PET_SITTER" && (
+                        <Link
+                          to="/sitter-profile/edit"
+                          className="block px-4 py-2 text-black hover:bg-gray-200"
+                        >
+                          Update Sitter Info
+                        </Link>
+                      )}
+                      <Link
+                        to="/appointment"
+                        className="block px-4 py-2 text-black hover:bg-gray-200"
+                      >
+                        My Appointment
+                      </Link>
+                    </div>
+                  )}
+                </div>
               )}
-              {userInfo?.role === "PET_SITTER" && (
-                <Link to="/sitter-profile/edit" className="mr-4">
-                  Update Sitter Info
-                </Link>
-              )}
-              <Link to="/appointment" className="mr-4">
-                My Appointment
-              </Link>
-              <LogOutButton />
             </>
           ) : (
             <>

@@ -64,7 +64,7 @@ const SitterBooking = () => {
           </p>
           {/* <p className="text-lg">Reviews: 4.9 stars</p> */}
           <button
-            className="w-full bg-transparent text-pink py-2 px-4 rounded-full border-2 border-pink hover:bg-pink hover:text-white transition-transform transform hover:scale-105 shadow-lg"
+            className="w-full bg-transparent text-pink py-2 px-4 rounded-full border-2 border-pink hover:bg-pink hover:text-white"
             onClick={onClick}
           >
             Book an appointment

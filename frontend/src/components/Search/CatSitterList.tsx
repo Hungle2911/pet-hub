@@ -28,7 +28,7 @@ const CatSitterList = ({ catSitters }: CatSitterListProps) => {
             <p>Description: {sitter.user.description}</p>
             {/* <p>Rating: {sitter.averageRating?.toFixed(1) || "N/A"}</p> */}
             <Link to={`/sitter-profile/${sitter.id}`}>
-              <button className="w-full bg-dark-orange text-white p-2 rounded hover:bg-blue-600">
+              <button className="w-full bg-soft-pink text-white p-2 rounded hover:bg-pink">
                 Book now
               </button>
             </Link>

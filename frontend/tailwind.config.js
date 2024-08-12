@@ -15,6 +15,9 @@ module.exports = {
       pink: "#EC86B4", //dark-orange
       "off-white": "#e8e8e8", //beige
       "soft-pink": "#F5A9C7",
+      'red': '#cc2936',
+      'cherry': '#D2042D',
+      'neon-red': '#FF3131',
       white: "#ffffff",
     },
     fontFamily: {

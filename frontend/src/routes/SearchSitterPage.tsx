@@ -4,6 +4,7 @@ import CatSitterList from "../components/Search/CatSitterList";
 import MapView from "../components/Search/MapView";
 import { CatSitter, SearchFormInputs } from "../types/types";
 import api from "../api/axios.config";
+import axios from "axios";
 
 interface Coordinate {
   lat: number;
@@ -62,17 +63,17 @@ const SearchSitterPage = () => {
           },
         }
       );
-    //     const onSubmit = async (data: SearchFormInputs) => {
-    // try {
-    //   const response = await api.get("/cat-sitters/search", {
-    //     params: {
-    //       address: data.address,
-    //       startDate: data.startDate.toISOString(),
-    //       endDate: data.endDate.toISOString(),
-    //       maxRate: data.maxRate,
-    //       maxDistance: data.maxDistance,
-    //     },
-    //   });
+      //     const onSubmit = async (data: SearchFormInputs) => {
+      // try {
+      //   const response = await api.get("/cat-sitters/search", {
+      //     params: {
+      //       address: data.address,
+      //       startDate: data.startDate.toISOString(),
+      //       endDate: data.endDate.toISOString(),
+      //       maxRate: data.maxRate,
+      //       maxDistance: data.maxDistance,
+      //     },
+      //   });
       console.log(response.data);
       setSearchResults(response.data);
       setRadius(data.maxDistance * 1000);

@@ -15,7 +15,7 @@ const AppointmentRequest = ({ data, userType }: AppointmentRequestProps) => {
         {data.map((appointment) => (
           <li
             key={appointment.id}
-            className="border-2 p-4 rounded-lg border-orange bg-white shadow-sm"
+            className="border-2 p-4 rounded-lg bg-white shadow-sm"
           >
             <div>
               {userType === "owner" ? "Provider: " : "Requester: "}

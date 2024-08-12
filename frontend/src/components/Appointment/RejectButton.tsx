@@ -21,7 +21,7 @@ const RejectButton = ({ id }: { id: number }) => {
   };
   return (
     <button
-      className="px-4 py-2 bg-red text-white rounded-lg hover:bg-red-600 transition"
+      className="text-white bg-gradient-to-r from-red  to-cherry hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
       onClick={onClick}
     >
       Reject
