@@ -1,7 +1,9 @@
 import React from "react";
 import legUpImage from "../assets/Leg_up.jpg";
 import SearchBar from "../components/Auth/SearchBar";
-
+import profilePic from "../assets/profile.png";
+import calenderPic from "../assets/calender.png";
+import reviewPic from "../assets/reviews.png";
 const Homepage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -30,42 +32,61 @@ const Homepage: React.FC = () => {
             </div>
           </div>
         </section>
-        <section className="container mx-auto px-6 pt-12 pb-20">
-          <h2 className="text-3xl font-bold text-gray-800 text-center">
-            Key Features
-          </h2>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-off-white p-6 rounded-lg shadow-lg text-center">
-              <h3 className="text-xl font-semibold text-custom-blue">
-                User Profiles
-              </h3>
-              <p className="mt-4 text-gray-600">
-                Detailed profiles for cat owners and cat sitters, including
-                preferences, experience, and more.
-              </p>
-            </div>
-            <div className="bg-off-white p-6 rounded-lg shadow-lg text-center">
-              <h3 className="text-xl font-semibold text-custom-blue">
-                Booking System
-              </h3>
-              <p className="mt-4 text-gray-600">
-                Search and filter cat sitters, send booking requests, and manage
-                your calendar with ease.
-              </p>
-            </div>
-            <div className="bg-off-white p-6 rounded-lg shadow-lg text-center">
-              <h3 className="text-xl font-semibold text-custom-blue">
-                Reviews and Ratings
-              </h3>
-              <p className="mt-4 text-gray-600">
-                Share your reviews and read the ratings of both cat sitters and
-                cat owners to ensure an exceptional experience and reliable
-                service.
-              </p>
-            </div>
-          </div>
-        </section>
       </main>
+      <section className="mx-auto px-6 pt-12 pb-20 bg-soft-pink">
+        <h2 className="text-4xl font-semibold text-black text-center">
+          Meet Cat Sitters Who Will Treat Your Pets Like Family
+        </h2>
+        <p className="mt-4 text-lg text-gray-700 text-center">
+          Find trusted cat sitters in your area, view detailed profiles, and
+          book with confidence.
+        </p>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center transform transition-transform hover:scale-105">
+            <h3 className="text-2xl font-semibold text-custom-blue">
+              User Profiles
+            </h3>
+            <p className="mt-4 text-gray-700">
+              Explore detailed profiles for cat owners and sitters, showcasing
+              experience, preferences, and availability. Easily find the perfect
+              match for your pet.
+            </p>
+            <img
+              src={profilePic}
+              alt="User Profiles"
+              className="mt-6 mx-auto w-3/4"
+            />
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center transform transition-transform hover:scale-105">
+            <h3 className="text-2xl font-semibold text-custom-blue">
+              Booking System
+            </h3>
+            <p className="mt-4 text-gray-700">
+              Effortlessly search and filter cat sitters, send booking requests,
+              and manage your appointments all in one place.
+            </p>
+            <img
+              src={calenderPic}
+              alt="Booking System"
+              className="mt-6 mx-auto"
+            />
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center transform transition-transform hover:scale-105">
+            <h3 className="text-2xl font-semibold text-custom-blue">
+              Reviews and Ratings
+            </h3>
+            <p className="mt-4 text-gray-700">
+              Read authentic reviews and ratings from other cat owners. Share
+              your experiences to help build a reliable community.
+            </p>
+            <img
+              src={reviewPic}
+              alt="Reviews and Ratings"
+              className="mt-6 mx-auto w-30 h-30"
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

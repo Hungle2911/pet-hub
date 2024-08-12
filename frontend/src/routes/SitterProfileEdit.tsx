@@ -89,77 +89,90 @@ const SitterProfileEdit: React.FC = () => {
   };
 
   return (
-  <div className="max-w-2xl mx-auto mt-8 p-6 bg-pink-100 rounded-lg shadow-lg border-2 border-pink-400">
-    <h1 className="text-2xl font-bold mb-6 text-gray-500">Pet Sitter Profile</h1>
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <label htmlFor="rate" className="block mb-1">Rate Per Day ($)</label>
-        <input
-          type="number"
-          id="rate"
-          {...register("rate", { required: true, min: 0 })}
-          className="w-full p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
-        />
-      </div>
-      <div>
-        <label htmlFor="experience" className="block mb-1">Cat Experience</label>
-        <textarea
-          id="experience"
-          {...register("experience", { required: true })}
-          className="w-full p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
-          rows={4}
-        ></textarea>
-      </div>
-      <div>
-        <label className="block mb-1">Availability</label>
-        {availabilities.map((av, index) => (
-          <div key={index} className="flex flex-wrap items-center space-x-2 mb-2">
-            <DatePicker
-              selected={av.start_date}
-              onChange={(date) => handleAvailabilityChange(index, "start_date", date)}
-              className="p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
-            />
-            <DatePicker
-              selected={av.end_date}
-              onChange={(date) => handleAvailabilityChange(index, "end_date", date)}
-              className="p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
-            />
-            <select
-              value={av.isAvailable ? "true" : "false"}
-              onChange={(e) => handleAvailabilityChange(index, "isAvailable", e.target.value)}
-              className="p-2 border rounded focus:outline-none focus:border-pink-500 focus:bg-pink-50"
+    <div className="max-w-2xl mx-auto mt-8 p-6 bg-pink-100 rounded-lg shadow-lg border-2 border-pink-400">
+      <h1 className="text-2xl font-bold mb-6 text-gray-500">
+        Pet Sitter Profile
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div>
+          <label htmlFor="rate" className="block mb-1">
+            Rate Per Day ($)
+          </label>
+          <input
+            type="number"
+            id="rate"
+            {...register("rate", { required: true, min: 0 })}
+            className="w-full p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
+          />
+        </div>
+        <div>
+          <label htmlFor="experience" className="block mb-1">
+            Cat Experience
+          </label>
+          <textarea
+            id="experience"
+            {...register("experience", { required: true })}
+            className="w-full p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
+            rows={4}
+          ></textarea>
+        </div>
+        <div>
+          <label className="block mb-1">Availability</label>
+          {availabilities.map((av, index) => (
+            <div
+              key={index}
+              className="flex flex-wrap items-center space-x-2 mb-2"
             >
-              <option value="true">Available</option>
-              <option value="false">Unavailable</option>
-            </select>
-            <button
-              type="button"
-              onClick={() => removeAvailability(index)}
-              className="bg-custom-blue text-off-white p-2 rounded"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
+              <DatePicker
+                selected={av.start_date}
+                onChange={(date) =>
+                  handleAvailabilityChange(index, "start_date", date)
+                }
+                className="p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
+              />
+              <DatePicker
+                selected={av.end_date}
+                onChange={(date) =>
+                  handleAvailabilityChange(index, "end_date", date)
+                }
+                className="p-2 border rounded focus:outline focus:border-pink-500 focus:bg-pink-50"
+              />
+              <select
+                value={av.isAvailable ? "true" : "false"}
+                onChange={(e) =>
+                  handleAvailabilityChange(index, "isAvailable", e.target.value)
+                }
+                className="p-2 border rounded focus:outline-none focus:border-pink-500 focus:bg-pink-50"
+              >
+                <option value="true">Available</option>
+                <option value="false">Unavailable</option>
+              </select>
+              <button
+                type="button"
+                onClick={() => removeAvailability(index)}
+                className="bg-red text-off-white p-2 rounded"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addAvailability}
+            className="bg-soft-pink text-white p-2 rounded mt-2 "
+          >
+            Set Availability
+          </button>
+        </div>
         <button
-          type="button"
-          onClick={addAvailability}
-          className="bg-off-white text-custom-blue p-2 rounded mt-2 border border-custom-blue border-2"
+          type="submit"
+          className="w-full bg-transparent text-pink py-2 px-4 rounded-full border-2 border-pink hover:bg-pink hover:text-white transition-transform transform hover:scale-105 shadow-lg"
         >
-          Set Availability
+          Update Profile
         </button>
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-transparent text-pink py-2 px-4 rounded-full border-2 border-pink hover:bg-pink hover:text-white transition-transform transform hover:scale-105 shadow-lg"
-      >
-        Update Profile
-      </button>
-    </form>
-  </div>
-);
+      </form>
+    </div>
+  );
 };
 
 export default SitterProfileEdit;
-
-
