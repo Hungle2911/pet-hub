@@ -2,6 +2,8 @@ Pet Hub
 
 Pet Hub is a web application designed to connect pet owners with trusted pet sitters. The application allows users to sign up as either a pet owner or a pet sitter, view profiles, book appointments, and manage appointments through a user-friendly interface.
 
+![Homepage](https://github.com/Hungle2911/pet-hub/blob/feature/finish-styling/frontend/src/assets/Homepage.png?raw=true)
+
 Table of Contents
 
 	1.	Features
