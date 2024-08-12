@@ -39,7 +39,7 @@ const NavBar = () => {
   }, [isAuthenticated, isLoading, getAccessTokenSilently, navigate]);
 
   return (
-    <nav className="bg-gray-100 navbar-container">
+    <nav className="bg-gray-100 navbar-container py-2">
       <div className="mx-4 md:mx-20 flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/">
