@@ -1,21 +1,13 @@
 import {
   GoogleMap,
-  LoadScript,
   Marker,
   InfoWindow,
   CircleF,
+  useLoadScript,
 } from "@react-google-maps/api";
 import { useState } from "react";
-
-interface CatSitter {
-  id: number;
-  user: {
-    name: string;
-    latitude: number;
-    longitude: number;
-  };
-  rate: number;
-}
+import { CatSitter } from "../../types/types";
+import Loading from "../Loading/Loading";
 
 interface MapViewProps {
   catSitters: CatSitter[];
@@ -25,6 +17,10 @@ interface MapViewProps {
 
 const MapView = ({ catSitters, center, radius }: MapViewProps) => {
   const [selectedSitter, setSelectedSitter] = useState<CatSitter | null>(null);
+  const googleMapAPI = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: googleMapAPI,
+  });
   const mapContainerStyle = {
     width: "100%",
     height: "600px",
@@ -32,7 +28,7 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
   const onSelect = (sitter: CatSitter) => {
     setSelectedSitter(sitter);
   };
-  const googleMapAPI = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
   const circleOptions = {
     strokeColor: "#ED9C54",
     strokeOpacity: 0.8,
@@ -45,37 +41,34 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
     visible: true,
     zIndex: 1,
   };
+  if (!isLoaded) return <Loading />;
   return (
-    <LoadScript googleMapsApiKey={googleMapAPI}>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={11}
-        center={center}
-      >
-        <CircleF center={center} radius={radius} options={circleOptions} />
-        {catSitters.map((sitter) => (
-          <Marker
-            key={sitter.id}
-            position={{ lat: sitter.user.latitude, lng: sitter.user.longitude }}
-            onClick={() => onSelect(sitter)}
-          />
-        ))}
-        {selectedSitter && (
-          <InfoWindow
-            position={{
-              lat: selectedSitter.user.latitude,
-              lng: selectedSitter.user.longitude,
-            }}
-            onCloseClick={() => setSelectedSitter(null)}
-          >
-            <div>
-              <h3>{selectedSitter.user.name}</h3>
-              <p>Rate: ${selectedSitter.rate}/day</p>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={11} center={center}>
+      {catSitters.map((sitter) => (
+        <Marker
+          key={sitter.id}
+          position={{ lat: sitter.user.latitude, lng: sitter.user.longitude }}
+          onClick={() => onSelect(sitter)}
+        />
+      ))}
+      {selectedSitter && (
+        <InfoWindow
+          position={{
+            lat: selectedSitter.user.latitude,
+            lng: selectedSitter.user.longitude,
+          }}
+          onCloseClick={() => setSelectedSitter(null)}
+        >
+          <div>
+            <h3>
+              {selectedSitter.user.first_name} {selectedSitter.user.last_name}
+            </h3>
+            <p>Rate: ${selectedSitter.rate}/day</p>
+          </div>
+        </InfoWindow>
+      )}
+      <CircleF center={center} radius={radius} options={circleOptions} />
+    </GoogleMap>
   );
 };
 

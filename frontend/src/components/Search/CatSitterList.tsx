@@ -1,15 +1,5 @@
 import { Link } from "react-router-dom";
-
-interface CatSitter {
-  id: number;
-  user: {
-    first_name: string;
-    last_name: string;
-    description: string;
-  };
-  rate: number;
-  // averageRating: number | null;
-}
+import { CatSitter } from "../../types/types";
 
 interface CatSitterListProps {
   catSitters: CatSitter[];
