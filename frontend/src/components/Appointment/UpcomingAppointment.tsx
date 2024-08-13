@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { formatDate } from "../../utilities/date_converter";
+import { Appointment } from "../../types/types";
 
 interface UpcomingAppointmentProps {
   data: any[];
@@ -6,14 +8,20 @@ interface UpcomingAppointmentProps {
 }
 
 const UpcomingAppointment = ({ data, userType }: UpcomingAppointmentProps) => {
+  const [appointments, setAppointments] = useState<Appointment[]>(
+    data.sort(
+      (a, b) =>
+        new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+    )
+  );
   return (
     <>
       <h2 className="text-xl font-semibold mb-4">Upcoming Appointments</h2>
-      {data.length === 0 ? (
+      {appointments.length === 0 ? (
         <p>No upcoming appointments.</p>
       ) : (
         <ul className="space-y-6">
-          {data.map((appointment) => (
+          {appointments.map((appointment) => (
             <li
               key={appointment.id}
               className="border-2 p-4 rounded-lg border-orange bg-white shadow-sm"

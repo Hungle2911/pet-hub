@@ -28,11 +28,22 @@ export interface Availability {
   isAvailable: boolean;
 }
 
-interface BookingFormData {
-  startDate: Date;
-  endDate: Date;
+export interface Appointment {
+  id: number;
+  startDate: string;
+  endDate: string;
+  status: string;
+  catSitter: {
+    user: {
+      first_name: string;
+      last_name: string;
+    };
+  };
+  catOwner: {
+    user: {
+      first_name: string;
+      last_name: string;
+    };
+  };
 }
-
-interface AppointmentRequestProps {
-  
-}
+export interface ConfirmButtonProps { id: number; onConfirm: (id: number) => void; }

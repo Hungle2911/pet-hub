@@ -83,6 +83,7 @@ class AppointmentController {
       requestAppointments = await prisma.booking.findMany({
         where: {
           catOwnerId: user.catOwner.id,
+          status: 'ACCEPTED',
         },
         include: {
           catSitter: {

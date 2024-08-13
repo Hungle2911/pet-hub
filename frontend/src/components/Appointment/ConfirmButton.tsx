@@ -1,6 +1,7 @@
 import api from "../../api/axios.config";
 import { useAuth0 } from "@auth0/auth0-react";
-const ConfirmButton = ({ id }: { id: number }) => {
+import { ConfirmButtonProps } from "../../types/types";
+const ConfirmButton = ({ id, onConfirm }: ConfirmButtonProps) => {
   const { getAccessTokenSilently } = useAuth0();
   const onClick = async () => {
     const token = await getAccessTokenSilently();
@@ -14,6 +15,7 @@ const ConfirmButton = ({ id }: { id: number }) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      onConfirm(id);
       console.log(response.data);
     } catch (error) {
       console.error(error);

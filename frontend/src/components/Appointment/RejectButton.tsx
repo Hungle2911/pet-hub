@@ -1,6 +1,7 @@
 import api from "../../api/axios.config";
 import { useAuth0 } from "@auth0/auth0-react";
-const RejectButton = ({ id }: { id: number }) => {
+import { ConfirmButtonProps } from "../../types/types";
+const RejectButton = ({ id, onConfirm }: ConfirmButtonProps) => {
   const { getAccessTokenSilently } = useAuth0();
   const onClick = async () => {
     const token = await getAccessTokenSilently();
@@ -15,6 +16,7 @@ const RejectButton = ({ id }: { id: number }) => {
         }
       );
       console.log(response.data);
+      onConfirm(id);
     } catch (error) {
       console.error(error);
     }
