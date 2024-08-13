@@ -38,11 +38,11 @@ const Homepage: React.FC = () => {
         <div className="flex justify-center">
           <div className="flex flex-col items-center text-center py-2">
             <h2 className="text-4xl font-semibold text-black">
-              WHERE CATS FEEL AT HOME
+              Where Cats Feel At Home
             </h2>
             <span className="text-4xl text-red-500 my-2">&#9829;</span>
             <h2 className="text-4xl font-semibold text-black">
-              EVEN WHEN YOU’RE AWAY
+              Even When You’re Away
             </h2>
           </div>
         </div>
