@@ -4,6 +4,7 @@ import SearchBar from "../components/Auth/SearchBar";
 import profilePic from "../assets/profile.png";
 import calenderPic from "../assets/calender.png";
 import reviewPic from "../assets/reviews.png";
+import Footer from "../components/Footer";
 const Homepage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -87,6 +88,7 @@ const Homepage: React.FC = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
