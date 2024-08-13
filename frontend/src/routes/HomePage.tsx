@@ -35,9 +35,17 @@ const Homepage: React.FC = () => {
         </section>
       </main>
       <section className="mx-auto px-6 pt-12 pb-20 bg-soft-pink">
-        <h2 className="text-4xl font-semibold text-black text-center">
-          Meet Cat Sitters Who Will Treat Your Pets Like Family
-        </h2>
+        <div className="flex justify-center">
+          <div className="flex flex-col items-center text-center py-2">
+            <h2 className="text-4xl font-semibold text-black">
+              WHERE CATS FEEL AT HOME
+            </h2>
+            <span className="text-4xl text-red-500 my-2">&#9829;</span>
+            <h2 className="text-4xl font-semibold text-black">
+              EVEN WHEN YOU’RE AWAY
+            </h2>
+          </div>
+        </div>
         <p className="mt-4 text-lg text-gray-700 text-center">
           Find trusted cat sitters in your area, view detailed profiles, and
           book with confidence.
