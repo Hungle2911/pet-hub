@@ -39,7 +39,7 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
     draggable: false,
     editable: false,
     visible: true,
-    zIndex: 1,
+    zIndex: -999,
   };
   if (!isLoaded) return <Loading />;
   return (
