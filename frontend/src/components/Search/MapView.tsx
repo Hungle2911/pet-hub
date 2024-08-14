@@ -1,13 +1,6 @@
-import {
-  GoogleMap,
-  Marker,
-  InfoWindow,
-  CircleF,
-  useLoadScript,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow, CircleF } from "@react-google-maps/api";
 import { useState } from "react";
 import { CatSitter } from "../../types/types";
-import Loading from "../Loading/Loading";
 
 interface MapViewProps {
   catSitters: CatSitter[];
@@ -17,10 +10,6 @@ interface MapViewProps {
 
 const MapView = ({ catSitters, center, radius }: MapViewProps) => {
   const [selectedSitter, setSelectedSitter] = useState<CatSitter | null>(null);
-  const googleMapAPI = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: googleMapAPI,
-  });
   const mapContainerStyle = {
     width: "100%",
     height: "600px",
@@ -41,9 +30,8 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
     visible: true,
     zIndex: -999,
   };
-  if (!isLoaded) return <Loading />;
   return (
-    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={11} center={center}>
+    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center}>
       {catSitters.map((sitter) => (
         <Marker
           key={sitter.id}
@@ -67,7 +55,7 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
           </div>
         </InfoWindow>
       )}
-      <CircleF center={center} radius={radius} options={circleOptions} />
+      {/* <CircleF center={center} radius={radius} options={circleOptions} /> */}
     </GoogleMap>
   );
 };

@@ -4,7 +4,8 @@ import CatSitterList from "../components/Search/CatSitterList";
 import MapView from "../components/Search/MapView";
 import { CatSitter, SearchFormInputs } from "../types/types";
 import api from "../api/axios.config";
-import axios from "axios";
+import { useLoadScript } from "@react-google-maps/api";
+import Loading from "../components/Loading/Loading";
 
 interface Coordinate {
   lat: number;
@@ -18,6 +19,11 @@ const SearchSitterPage = () => {
     lng: -79.387054,
   });
   const [radius, setRadius] = useState<number>(5000);
+  const googleMapAPI = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: googleMapAPI,
+    libraries: ["places"],
+  });
 
   useEffect(() => {
     // Get user's location or use a default location
@@ -51,29 +57,15 @@ const SearchSitterPage = () => {
 
   const onSubmit = async (data: SearchFormInputs) => {
     try {
-      const response = await axios.get(
-        "http://localhost:8070/v1/api/cat-sitters/search",
-        {
-          params: {
-            address: data.address,
-            startDate: data.startDate.toISOString(),
-            endDate: data.endDate.toISOString(),
-            maxRate: data.maxRate,
-            maxDistance: data.maxDistance,
-          },
-        }
-      );
-      //     const onSubmit = async (data: SearchFormInputs) => {
-      // try {
-      //   const response = await api.get("/cat-sitters/search", {
-      //     params: {
-      //       address: data.address,
-      //       startDate: data.startDate.toISOString(),
-      //       endDate: data.endDate.toISOString(),
-      //       maxRate: data.maxRate,
-      //       maxDistance: data.maxDistance,
-      //     },
-      //   });
+      const response = await api.get("/cat-sitters/search", {
+        params: {
+          address: data.address,
+          startDate: data.startDate.toISOString(),
+          endDate: data.endDate.toISOString(),
+          maxRate: data.maxRate,
+          maxDistance: data.maxDistance,
+        },
+      });
       console.log(response.data);
       setSearchResults(response.data);
       setRadius(data.maxDistance * 1000);
@@ -87,7 +79,7 @@ const SearchSitterPage = () => {
       console.error("Error searching for sitters:", error);
     }
   };
-
+  if (!isLoaded) return <Loading />;
   return (
     <div className="container mx-auto p-4">
       <div className="flex flex-col md:flex-row md:space-x-4">
