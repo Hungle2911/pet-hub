@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Availability } from "../types/types";
+import { Flip, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface PetSitterFormData {
   rate: number;
@@ -55,7 +57,15 @@ const SitterProfileEdit: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      alert("Profile updated successfully!");
+      toast.success("Your profile was updated successfully! 🐱", {
+        position: "top-center",
+        autoClose: 5000,
+        transition: Flip,
+        pauseOnHover: false,
+        onClose: () => {
+          console.log("hi");
+        },
+      });
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Failed to update profile. Please try again.");
@@ -125,6 +135,7 @@ const SitterProfileEdit: React.FC = () => {
             >
               <DatePicker
                 selected={av.start_date}
+                minDate={new Date()}
                 onChange={(date) =>
                   handleAvailabilityChange(index, "start_date", date)
                 }
@@ -132,6 +143,7 @@ const SitterProfileEdit: React.FC = () => {
               />
               <DatePicker
                 selected={av.end_date}
+                minDate={av.start_date}
                 onChange={(date) =>
                   handleAvailabilityChange(index, "end_date", date)
                 }
@@ -171,6 +183,7 @@ const SitterProfileEdit: React.FC = () => {
           Update Profile
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
