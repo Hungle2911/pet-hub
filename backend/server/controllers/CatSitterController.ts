@@ -8,7 +8,7 @@ class CatSitterController {
   try {
     let lat: number | null = null
     let lon: number | null = null
-    if (longitude && latitude ) {
+    if (longitude && latitude && !address) {
       lat = Number(latitude);
       lon = Number(longitude);
     } else if (address) {
@@ -46,8 +46,20 @@ class CatSitterController {
       const distance = calculateDistance(lat!, lon!, sitter.user.latitude!, sitter.user.longitude!);
       return distance <= Number(maxDistance);
     });
-    console.log(nearbyCatSitters);
-    res.json(nearbyCatSitters);
+    // console.log({
+    //   userLocation: {
+    //     latitude: lat,
+    //     longitude: lon,
+    //   },
+    //   catSitters: nearbyCatSitters
+    // });
+    res.json({
+      userLocation: {
+        latitude: lat,
+        longitude: lon,
+      },
+      catSitters: nearbyCatSitters
+    });
   } catch (error) {
     console.error('Error searching cat sitters:', error);
     res.status(500).json({ error: 'Error searching cat sitters' });

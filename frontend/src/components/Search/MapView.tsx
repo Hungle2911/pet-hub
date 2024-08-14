@@ -28,10 +28,23 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
     draggable: false,
     editable: false,
     visible: true,
-    zIndex: -999,
+    zIndex: 0,
+  };
+  const centerCircleOptions = {
+    strokeColor: "#ffffff",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#00008B",
+    fillOpacity: 0.35,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    zIndex: 3,
   };
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center}>
+      <CircleF center={center} options={centerCircleOptions} radius={500} />
       {catSitters.map((sitter) => (
         <Marker
           key={sitter.id}
@@ -46,6 +59,9 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
             lng: selectedSitter.user.longitude,
           }}
           onCloseClick={() => setSelectedSitter(null)}
+          options={{
+            zIndex: 4,
+          }}
         >
           <div>
             <h3>
@@ -55,7 +71,7 @@ const MapView = ({ catSitters, center, radius }: MapViewProps) => {
           </div>
         </InfoWindow>
       )}
-      {/* <CircleF center={center} radius={radius} options={circleOptions} /> */}
+      <CircleF center={center} radius={radius} options={circleOptions} />
     </GoogleMap>
   );
 };

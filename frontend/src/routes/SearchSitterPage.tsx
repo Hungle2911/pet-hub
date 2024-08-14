@@ -8,15 +8,15 @@ import { useLoadScript } from "@react-google-maps/api";
 import Loading from "../components/Loading/Loading";
 
 interface Coordinate {
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
 }
 
 const SearchSitterPage = () => {
   const [searchResults, setSearchResults] = useState<CatSitter[]>([]);
   const [mapCenter, setMapCenter] = useState<Coordinate>({
-    lat: 43.6426,
-    lng: -79.387054,
+    latitude: 43.6426,
+    longitude: -79.387054,
   });
   const [radius, setRadius] = useState<number>(5000);
   const googleMapAPI = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -30,8 +30,8 @@ const SearchSitterPage = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setMapCenter({ lat: latitude, lng: longitude });
-        fetchNearbySitters({ lat: latitude, lng: longitude });
+        setMapCenter({ latitude, longitude });
+        fetchNearbySitters({ latitude, longitude });
       },
       () => {
         fetchNearbySitters(mapCenter);
@@ -43,13 +43,14 @@ const SearchSitterPage = () => {
     try {
       const response = await api.get("/cat-sitters/search", {
         params: {
-          latitude: center.lat,
-          longitude: center.lng,
+          latitude: center.latitude,
+          longitude: center.longitude,
           maxDistance: 5,
           maxRate: 1000,
         },
       });
-      setSearchResults(response.data);
+      setSearchResults(response.data.catSitters);
+      setMapCenter(response.data.userLocation);
     } catch (error) {
       console.error("Error fetching nearby sitters:", error);
     }
@@ -67,14 +68,12 @@ const SearchSitterPage = () => {
         },
       });
       console.log(response.data);
-      setSearchResults(response.data);
+      setSearchResults(response.data.catSitters);
       setRadius(data.maxDistance * 1000);
-      if (response.data.length > 0) {
-        setMapCenter({
-          lat: response.data[0].user.latitude,
-          lng: response.data[0].user.longitude,
-        });
-      }
+      setMapCenter({
+        latitude: response.data.userLocation.latitude,
+        longitude: response.data.userLocation.longitude,
+      });
     } catch (error) {
       console.error("Error searching for sitters:", error);
     }
@@ -95,7 +94,7 @@ const SearchSitterPage = () => {
       <div className="w-full h-96 mt-6">
         <MapView
           catSitters={searchResults}
-          center={mapCenter}
+          center={{ lat: mapCenter.latitude, lng: mapCenter.longitude }}
           radius={radius}
         />
       </div>
