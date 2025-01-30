@@ -105,3 +105,4 @@ const BookingCalendarModal = ({ sitterInfo, onClose }: BookingModalProps) => {
 };
 
 export default BookingCalendarModal;
+ 
